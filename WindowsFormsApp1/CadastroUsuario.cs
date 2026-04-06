@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class LojaTech : Form
+    public partial class CadastroUsuario : Form
     {
-        public LojaTech()
+        public CadastroUsuario()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
