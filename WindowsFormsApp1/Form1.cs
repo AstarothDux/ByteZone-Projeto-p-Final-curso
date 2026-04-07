@@ -24,7 +24,11 @@ namespace WindowsFormsApp1
 
         private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (produtosToolStripMenuItem.Pressed)
+            {
+                CadastrarProduto cadastrarProduto = new CadastrarProduto();
+                cadastrarProduto.Show();
+            }
         }
     }
 }
