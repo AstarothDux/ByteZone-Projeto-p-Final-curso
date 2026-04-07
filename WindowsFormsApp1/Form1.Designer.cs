@@ -62,8 +62,9 @@
             // usuáriosAdminsToolStripMenuItem
             // 
             this.usuáriosAdminsToolStripMenuItem.Name = "usuáriosAdminsToolStripMenuItem";
-            this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuáriosAdminsToolStripMenuItem.Text = "Usuários/Admins";
+            this.usuáriosAdminsToolStripMenuItem.Click += new System.EventHandler(this.usuáriosAdminsToolStripMenuItem_Click);
             // 
             // produtosToolStripMenuItem
             // 

@@ -30,5 +30,14 @@ namespace WindowsFormsApp1
                 cadastrarProduto.Show();
             }
         }
+
+        private void usuáriosAdminsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (usuáriosAdminsToolStripMenuItem.Pressed)
+            {
+                CadastroUsuario cadastroUsuario = new CadastroUsuario();
+                cadastroUsuario.Show();
+            }
+        }
     }
 }
