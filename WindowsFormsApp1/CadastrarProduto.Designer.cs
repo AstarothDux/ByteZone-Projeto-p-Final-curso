@@ -32,7 +32,7 @@
             this.txtNomeProd = new System.Windows.Forms.TextBox();
             this.txtDescricaoProd = new System.Windows.Forms.TextBox();
             this.lblDescricaoProd = new System.Windows.Forms.Label();
-            this.btnCadastraProd = new System.Windows.Forms.Button();
+            this.btnCadaProduto = new System.Windows.Forms.Button();
             this.lblValorProd = new System.Windows.Forms.Label();
             this.lblCategoriaProd = new System.Windows.Forms.Label();
             this.cmbCategoriaProd = new System.Windows.Forms.ComboBox();
@@ -41,7 +41,7 @@
             this.lblMarcaProd = new System.Windows.Forms.Label();
             this.txtAlturaProd = new System.Windows.Forms.TextBox();
             this.lblAlturaProd = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtLarguraProd = new System.Windows.Forms.TextBox();
             this.lblLarguraProd = new System.Windows.Forms.Label();
             this.txtPesoProd = new System.Windows.Forms.TextBox();
             this.lblPesoProd = new System.Windows.Forms.Label();
@@ -79,14 +79,14 @@
             this.lblDescricaoProd.TabIndex = 3;
             this.lblDescricaoProd.Text = "Digite a Descrição do Produto";
             // 
-            // btnCadastraProd
+            // btnCadaProduto
             // 
-            this.btnCadastraProd.Location = new System.Drawing.Point(13, 328);
-            this.btnCadastraProd.Name = "btnCadastraProd";
-            this.btnCadastraProd.Size = new System.Drawing.Size(124, 60);
-            this.btnCadastraProd.TabIndex = 5;
-            this.btnCadastraProd.Text = "Cadastrar Produto";
-            this.btnCadastraProd.UseVisualStyleBackColor = true;
+            this.btnCadaProduto.Location = new System.Drawing.Point(13, 328);
+            this.btnCadaProduto.Name = "btnCadaProduto";
+            this.btnCadaProduto.Size = new System.Drawing.Size(124, 60);
+            this.btnCadaProduto.TabIndex = 5;
+            this.btnCadaProduto.Text = "Cadastrar Produto";
+            this.btnCadaProduto.UseVisualStyleBackColor = true;
             // 
             // lblValorProd
             // 
@@ -154,12 +154,12 @@
             this.lblAlturaProd.TabIndex = 12;
             this.lblAlturaProd.Text = "Altura do Produto em CM";
             // 
-            // textBox1
+            // txtLarguraProd
             // 
-            this.textBox1.Location = new System.Drawing.Point(15, 263);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(83, 20);
-            this.textBox1.TabIndex = 15;
+            this.txtLarguraProd.Location = new System.Drawing.Point(15, 263);
+            this.txtLarguraProd.Name = "txtLarguraProd";
+            this.txtLarguraProd.Size = new System.Drawing.Size(83, 20);
+            this.txtLarguraProd.TabIndex = 15;
             // 
             // lblLarguraProd
             // 
@@ -190,10 +190,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txtPesoProd);
             this.Controls.Add(this.lblPesoProd);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtLarguraProd);
             this.Controls.Add(this.lblLarguraProd);
             this.Controls.Add(this.txtAlturaProd);
             this.Controls.Add(this.lblAlturaProd);
@@ -203,7 +204,7 @@
             this.Controls.Add(this.cmbCategoriaProd);
             this.Controls.Add(this.lblCategoriaProd);
             this.Controls.Add(this.lblValorProd);
-            this.Controls.Add(this.btnCadastraProd);
+            this.Controls.Add(this.btnCadaProduto);
             this.Controls.Add(this.txtDescricaoProd);
             this.Controls.Add(this.lblDescricaoProd);
             this.Controls.Add(this.txtNomeProd);
@@ -221,7 +222,7 @@
         private System.Windows.Forms.TextBox txtNomeProd;
         private System.Windows.Forms.TextBox txtDescricaoProd;
         private System.Windows.Forms.Label lblDescricaoProd;
-        private System.Windows.Forms.Button btnCadastraProd;
+        private System.Windows.Forms.Button btnCadaProduto;
         private System.Windows.Forms.Label lblValorProd;
         private System.Windows.Forms.Label lblCategoriaProd;
         private System.Windows.Forms.ComboBox cmbCategoriaProd;
@@ -230,7 +231,7 @@
         private System.Windows.Forms.Label lblMarcaProd;
         private System.Windows.Forms.TextBox txtAlturaProd;
         private System.Windows.Forms.Label lblAlturaProd;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtLarguraProd;
         private System.Windows.Forms.Label lblLarguraProd;
         private System.Windows.Forms.TextBox txtPesoProd;
         private System.Windows.Forms.Label lblPesoProd;

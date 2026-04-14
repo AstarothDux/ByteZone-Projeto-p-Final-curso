@@ -37,8 +37,9 @@
             this.txtCadSobrUsuario = new System.Windows.Forms.TextBox();
             this.lblCadSobrUsuario = new System.Windows.Forms.Label();
             this.lblCadTipoUsuario = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbTipoUsuario = new System.Windows.Forms.ComboBox();
             this.lblTipoUsuarioA_U = new System.Windows.Forms.Label();
+            this.btnCadUsuario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtCadNomeUsuario
@@ -114,13 +115,13 @@
             this.lblCadTipoUsuario.TabIndex = 20;
             this.lblCadTipoUsuario.Text = "Tipo de Usuário";
             // 
-            // comboBox1
+            // cmbTipoUsuario
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(645, 45);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(79, 21);
-            this.comboBox1.TabIndex = 21;
+            this.cmbTipoUsuario.FormattingEnabled = true;
+            this.cmbTipoUsuario.Location = new System.Drawing.Point(645, 45);
+            this.cmbTipoUsuario.Name = "cmbTipoUsuario";
+            this.cmbTipoUsuario.Size = new System.Drawing.Size(79, 21);
+            this.cmbTipoUsuario.TabIndex = 21;
             // 
             // lblTipoUsuarioA_U
             // 
@@ -131,13 +132,24 @@
             this.lblTipoUsuarioA_U.TabIndex = 22;
             this.lblTipoUsuarioA_U.Text = "A = Admnistrador U = Usuário";
             // 
+            // btnCadUsuario
+            // 
+            this.btnCadUsuario.Location = new System.Drawing.Point(15, 180);
+            this.btnCadUsuario.Name = "btnCadUsuario";
+            this.btnCadUsuario.Size = new System.Drawing.Size(199, 45);
+            this.btnCadUsuario.TabIndex = 23;
+            this.btnCadUsuario.Text = "Cadastrar Usuário";
+            this.btnCadUsuario.UseVisualStyleBackColor = true;
+            // 
             // CadastroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnCadUsuario);
             this.Controls.Add(this.lblTipoUsuarioA_U);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbTipoUsuario);
             this.Controls.Add(this.lblCadTipoUsuario);
             this.Controls.Add(this.txtCadSobrUsuario);
             this.Controls.Add(this.lblCadSobrUsuario);
@@ -165,7 +177,8 @@
         private System.Windows.Forms.TextBox txtCadSobrUsuario;
         private System.Windows.Forms.Label lblCadSobrUsuario;
         private System.Windows.Forms.Label lblCadTipoUsuario;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbTipoUsuario;
         private System.Windows.Forms.Label lblTipoUsuarioA_U;
+        private System.Windows.Forms.Button btnCadUsuario;
     }
 }
