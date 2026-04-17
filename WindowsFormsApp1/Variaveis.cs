@@ -7,9 +7,8 @@ using System.Data.SqlClient;
 
 namespace WindowsFormsApp1
 {
-    class Variaveis
+    public static class Variaveis
     {
-        public static void Variaveis
         public static string CaixaTxtNomeProd { get; set; }
         public static string CaixaTxtDescricaoProd { get; set; }
         public static string CaixaTxtMarcaProd { get; set; }
