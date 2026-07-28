@@ -35,6 +35,7 @@
             this.sobreNósToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alteraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,16 +55,18 @@
             // 
             this.cadastrarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuáriosAdminsToolStripMenuItem,
+            this.alteraçãoToolStripMenuItem,
             this.produtosToolStripMenuItem});
             this.cadastrarToolStripMenuItem.Name = "cadastrarToolStripMenuItem";
-            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
-            this.cadastrarToolStripMenuItem.Text = "Cadastrar";
+            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.cadastrarToolStripMenuItem.Text = "Usuários";
+            this.cadastrarToolStripMenuItem.Click += new System.EventHandler(this.cadastrarToolStripMenuItem_Click);
             // 
             // usuáriosAdminsToolStripMenuItem
             // 
             this.usuáriosAdminsToolStripMenuItem.Name = "usuáriosAdminsToolStripMenuItem";
             this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.usuáriosAdminsToolStripMenuItem.Text = "Usuários/Admins";
+            this.usuáriosAdminsToolStripMenuItem.Text = "Cadastro";
             this.usuáriosAdminsToolStripMenuItem.Click += new System.EventHandler(this.usuáriosAdminsToolStripMenuItem_Click);
             // 
             // produtosToolStripMenuItem
@@ -71,7 +74,6 @@
             this.produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
             this.produtosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.produtosToolStripMenuItem.Text = "Produtos";
-            this.produtosToolStripMenuItem.Click += new System.EventHandler(this.produtosToolStripMenuItem_Click);
             // 
             // sobreNósToolStripMenuItem
             // 
@@ -92,6 +94,12 @@
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
             this.sairToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.sairToolStripMenuItem.Text = "Sair";
+            // 
+            // alteraçãoToolStripMenuItem
+            // 
+            this.alteraçãoToolStripMenuItem.Name = "alteraçãoToolStripMenuItem";
+            this.alteraçãoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alteraçãoToolStripMenuItem.Text = "Alteração";
             // 
             // LojaTech
             // 
@@ -119,6 +127,7 @@
         private System.Windows.Forms.ToolStripMenuItem sobreNósToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem alteraçãoToolStripMenuItem;
     }
 }
 

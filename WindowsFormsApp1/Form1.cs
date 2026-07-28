@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,16 +20,9 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (produtosToolStripMenuItem.Pressed)
-            {
-                CadastrarProduto cadastrarProduto = new CadastrarProduto();
-                cadastrarProduto.Show();
-            }
+            var conexao = new MySqlConnection(Variaveis.strConn);
+            conexao.Open();
+            
         }
 
         private void usuáriosAdminsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,6 +32,11 @@ namespace WindowsFormsApp1
                 CadastroUsuario cadastroUsuario = new CadastroUsuario();
                 cadastroUsuario.Show();
             }
+        }
+
+        private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

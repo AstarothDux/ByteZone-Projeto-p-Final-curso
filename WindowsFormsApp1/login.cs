@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class CadastrarProduto : Form
+    public partial class login : Form
     {
-        public CadastrarProduto()
+        public login()
         {
             InitializeComponent();
-        }
-
-        private void CadastrarProduto_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -26,6 +26,7 @@ namespace WindowsFormsApp1
                 {
                     //Obter resultados das colunas
                     string NomeProduto = (string)drDados["Nome_Produto"];
+
                     //Preencher combobox com dados
                     Variaveis.CaixaTxtNomeProd = NomeProduto;
                 }

@@ -34,17 +34,17 @@
             this.lblCadCPF = new System.Windows.Forms.Label();
             this.txtCadEmail = new System.Windows.Forms.TextBox();
             this.lblCadEmail = new System.Windows.Forms.Label();
-            this.txtCadSobrUsuario = new System.Windows.Forms.TextBox();
-            this.lblCadSobrUsuario = new System.Windows.Forms.Label();
             this.lblCadTipoUsuario = new System.Windows.Forms.Label();
             this.cmbTipoUsuario = new System.Windows.Forms.ComboBox();
             this.lblTipoUsuarioA_U = new System.Windows.Forms.Label();
             this.btnCadUsuario = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblSenha = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtCadNomeUsuario
             // 
-            this.txtCadNomeUsuario.Location = new System.Drawing.Point(15, 105);
+            this.txtCadNomeUsuario.Location = new System.Drawing.Point(12, 105);
             this.txtCadNomeUsuario.Name = "txtCadNomeUsuario";
             this.txtCadNomeUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtCadNomeUsuario.TabIndex = 17;
@@ -90,26 +90,10 @@
             this.lblCadEmail.TabIndex = 12;
             this.lblCadEmail.Text = "Digite seu Email";
             // 
-            // txtCadSobrUsuario
-            // 
-            this.txtCadSobrUsuario.Location = new System.Drawing.Point(15, 144);
-            this.txtCadSobrUsuario.Name = "txtCadSobrUsuario";
-            this.txtCadSobrUsuario.Size = new System.Drawing.Size(199, 20);
-            this.txtCadSobrUsuario.TabIndex = 19;
-            // 
-            // lblCadSobrUsuario
-            // 
-            this.lblCadSobrUsuario.AutoSize = true;
-            this.lblCadSobrUsuario.Location = new System.Drawing.Point(12, 128);
-            this.lblCadSobrUsuario.Name = "lblCadSobrUsuario";
-            this.lblCadSobrUsuario.Size = new System.Drawing.Size(152, 13);
-            this.lblCadSobrUsuario.TabIndex = 18;
-            this.lblCadSobrUsuario.Text = "Digite o sobrenome do Usuário";
-            // 
             // lblCadTipoUsuario
             // 
             this.lblCadTipoUsuario.AutoSize = true;
-            this.lblCadTipoUsuario.Location = new System.Drawing.Point(642, 9);
+            this.lblCadTipoUsuario.Location = new System.Drawing.Point(527, 9);
             this.lblCadTipoUsuario.Name = "lblCadTipoUsuario";
             this.lblCadTipoUsuario.Size = new System.Drawing.Size(82, 13);
             this.lblCadTipoUsuario.TabIndex = 20;
@@ -118,7 +102,7 @@
             // cmbTipoUsuario
             // 
             this.cmbTipoUsuario.FormattingEnabled = true;
-            this.cmbTipoUsuario.Location = new System.Drawing.Point(645, 45);
+            this.cmbTipoUsuario.Location = new System.Drawing.Point(527, 49);
             this.cmbTipoUsuario.Name = "cmbTipoUsuario";
             this.cmbTipoUsuario.Size = new System.Drawing.Size(79, 21);
             this.cmbTipoUsuario.TabIndex = 21;
@@ -126,7 +110,7 @@
             // lblTipoUsuarioA_U
             // 
             this.lblTipoUsuarioA_U.AutoSize = true;
-            this.lblTipoUsuarioA_U.Location = new System.Drawing.Point(642, 29);
+            this.lblTipoUsuarioA_U.Location = new System.Drawing.Point(527, 29);
             this.lblTipoUsuarioA_U.Name = "lblTipoUsuarioA_U";
             this.lblTipoUsuarioA_U.Size = new System.Drawing.Size(146, 13);
             this.lblTipoUsuarioA_U.TabIndex = 22;
@@ -134,25 +118,41 @@
             // 
             // btnCadUsuario
             // 
-            this.btnCadUsuario.Location = new System.Drawing.Point(15, 180);
+            this.btnCadUsuario.Location = new System.Drawing.Point(12, 170);
             this.btnCadUsuario.Name = "btnCadUsuario";
             this.btnCadUsuario.Size = new System.Drawing.Size(199, 45);
             this.btnCadUsuario.TabIndex = 23;
             this.btnCadUsuario.Text = "Cadastrar Usuário";
             this.btnCadUsuario.UseVisualStyleBackColor = true;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 144);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(199, 20);
+            this.textBox1.TabIndex = 25;
+            // 
+            // lblSenha
+            // 
+            this.lblSenha.AutoSize = true;
+            this.lblSenha.Location = new System.Drawing.Point(12, 128);
+            this.lblSenha.Name = "lblSenha";
+            this.lblSenha.Size = new System.Drawing.Size(91, 13);
+            this.lblSenha.TabIndex = 24;
+            this.lblSenha.Text = "Digite uma Senha";
+            // 
             // CadastroUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(685, 385);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblSenha);
             this.Controls.Add(this.btnCadUsuario);
             this.Controls.Add(this.lblTipoUsuarioA_U);
             this.Controls.Add(this.cmbTipoUsuario);
             this.Controls.Add(this.lblCadTipoUsuario);
-            this.Controls.Add(this.txtCadSobrUsuario);
-            this.Controls.Add(this.lblCadSobrUsuario);
             this.Controls.Add(this.txtCadNomeUsuario);
             this.Controls.Add(this.lblNomeUsuario);
             this.Controls.Add(this.txtCadCPF);
@@ -174,11 +174,11 @@
         private System.Windows.Forms.Label lblCadCPF;
         private System.Windows.Forms.TextBox txtCadEmail;
         private System.Windows.Forms.Label lblCadEmail;
-        private System.Windows.Forms.TextBox txtCadSobrUsuario;
-        private System.Windows.Forms.Label lblCadSobrUsuario;
         private System.Windows.Forms.Label lblCadTipoUsuario;
         private System.Windows.Forms.ComboBox cmbTipoUsuario;
         private System.Windows.Forms.Label lblTipoUsuarioA_U;
         private System.Windows.Forms.Button btnCadUsuario;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblSenha;
     }
 }

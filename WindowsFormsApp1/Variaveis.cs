@@ -27,6 +27,6 @@ namespace WindowsFormsApp1
         public static string TipoUsuario { get; set; }
 
         //String conexão sql
-        public static string strConn = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=db_Localdb;";
+        public static string strConn = "server=localhost; database=db_Tec; uid=admin67; pwd=six@seven;";
     }
 }
