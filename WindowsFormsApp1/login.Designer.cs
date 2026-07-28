@@ -82,6 +82,7 @@
             this.btnEnter.TabIndex = 4;
             this.btnEnter.Text = "Entrar";
             this.btnEnter.UseVisualStyleBackColor = false;
+            this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
             // 
             // login
             // 
