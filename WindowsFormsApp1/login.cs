@@ -77,5 +77,10 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Erro ao conectar ao banco: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

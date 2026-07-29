@@ -19,7 +19,7 @@ namespace WindowsFormsApp1
             var email = txtCadEmail.Text.Trim();
             var cpf = txtCadCPF.Text.Trim();
             var nome = txtCadNomeUsuario.Text.Trim();
-            var senha = textBox1.Text; // campo de senha
+            var senha = txtSenha.Text; // campo de senha
             var tipo = cmbTipoUsuario.Text.Trim();
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(cpf) || string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(senha) || string.IsNullOrEmpty(tipo))
@@ -85,6 +85,11 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("Erro ao cadastrar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void lblCadEmail_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

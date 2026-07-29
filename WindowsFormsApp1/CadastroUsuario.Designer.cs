@@ -34,17 +34,29 @@
             this.lblCadCPF = new System.Windows.Forms.Label();
             this.txtCadEmail = new System.Windows.Forms.TextBox();
             this.lblCadEmail = new System.Windows.Forms.Label();
-            this.lblCadTipoUsuario = new System.Windows.Forms.Label();
-            this.cmbTipoUsuario = new System.Windows.Forms.ComboBox();
-            this.lblTipoUsuarioA_U = new System.Windows.Forms.Label();
             this.btnCadUsuario = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSenha = new System.Windows.Forms.TextBox();
             this.lblSenha = new System.Windows.Forms.Label();
+            this.txtSobrenome = new System.Windows.Forms.TextBox();
+            this.lblSobrenome = new System.Windows.Forms.Label();
+            this.txtConfirmSenha = new System.Windows.Forms.TextBox();
+            this.lblConfirmarSenha = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtConfirmSenhaAPP = new System.Windows.Forms.TextBox();
+            this.lblConfirmSenhaAPP = new System.Windows.Forms.Label();
+            this.txtSenhaAPP = new System.Windows.Forms.TextBox();
+            this.lblSenhaAPP = new System.Windows.Forms.Label();
+            this.btnCadUserAPP = new System.Windows.Forms.Button();
+            this.txtNomeUsuarioAPP = new System.Windows.Forms.TextBox();
+            this.lblNomeUsuarioAPP = new System.Windows.Forms.Label();
+            this.txtTelefone = new System.Windows.Forms.TextBox();
+            this.lblTelefone = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtCadNomeUsuario
             // 
-            this.txtCadNomeUsuario.Location = new System.Drawing.Point(12, 105);
+            this.txtCadNomeUsuario.Location = new System.Drawing.Point(12, 71);
             this.txtCadNomeUsuario.Name = "txtCadNomeUsuario";
             this.txtCadNomeUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtCadNomeUsuario.TabIndex = 17;
@@ -52,15 +64,15 @@
             // lblNomeUsuario
             // 
             this.lblNomeUsuario.AutoSize = true;
-            this.lblNomeUsuario.Location = new System.Drawing.Point(12, 89);
+            this.lblNomeUsuario.Location = new System.Drawing.Point(12, 55);
             this.lblNomeUsuario.Name = "lblNomeUsuario";
-            this.lblNomeUsuario.Size = new System.Drawing.Size(126, 13);
+            this.lblNomeUsuario.Size = new System.Drawing.Size(74, 13);
             this.lblNomeUsuario.TabIndex = 16;
-            this.lblNomeUsuario.Text = "Digite o nome do Usuário";
+            this.lblNomeUsuario.Text = "Digite o Nome";
             // 
             // txtCadCPF
             // 
-            this.txtCadCPF.Location = new System.Drawing.Point(13, 66);
+            this.txtCadCPF.Location = new System.Drawing.Point(13, 150);
             this.txtCadCPF.Name = "txtCadCPF";
             this.txtCadCPF.Size = new System.Drawing.Size(201, 20);
             this.txtCadCPF.TabIndex = 15;
@@ -68,15 +80,15 @@
             // lblCadCPF
             // 
             this.lblCadCPF.AutoSize = true;
-            this.lblCadCPF.Location = new System.Drawing.Point(12, 49);
+            this.lblCadCPF.Location = new System.Drawing.Point(12, 133);
             this.lblCadCPF.Name = "lblCadCPF";
-            this.lblCadCPF.Size = new System.Drawing.Size(77, 13);
+            this.lblCadCPF.Size = new System.Drawing.Size(66, 13);
             this.lblCadCPF.TabIndex = 14;
-            this.lblCadCPF.Text = "Digite seu CPF";
+            this.lblCadCPF.Text = "Digite o CPF";
             // 
             // txtCadEmail
             // 
-            this.txtCadEmail.Location = new System.Drawing.Point(12, 26);
+            this.txtCadEmail.Location = new System.Drawing.Point(12, 190);
             this.txtCadEmail.Name = "txtCadEmail";
             this.txtCadEmail.Size = new System.Drawing.Size(201, 20);
             this.txtCadEmail.TabIndex = 13;
@@ -84,62 +96,160 @@
             // lblCadEmail
             // 
             this.lblCadEmail.AutoSize = true;
-            this.lblCadEmail.Location = new System.Drawing.Point(12, 9);
+            this.lblCadEmail.Location = new System.Drawing.Point(12, 173);
             this.lblCadEmail.Name = "lblCadEmail";
-            this.lblCadEmail.Size = new System.Drawing.Size(82, 13);
+            this.lblCadEmail.Size = new System.Drawing.Size(71, 13);
             this.lblCadEmail.TabIndex = 12;
-            this.lblCadEmail.Text = "Digite seu Email";
-            // 
-            // lblCadTipoUsuario
-            // 
-            this.lblCadTipoUsuario.AutoSize = true;
-            this.lblCadTipoUsuario.Location = new System.Drawing.Point(527, 9);
-            this.lblCadTipoUsuario.Name = "lblCadTipoUsuario";
-            this.lblCadTipoUsuario.Size = new System.Drawing.Size(82, 13);
-            this.lblCadTipoUsuario.TabIndex = 20;
-            this.lblCadTipoUsuario.Text = "Tipo de Usuário";
-            // 
-            // cmbTipoUsuario
-            // 
-            this.cmbTipoUsuario.FormattingEnabled = true;
-            this.cmbTipoUsuario.Location = new System.Drawing.Point(527, 49);
-            this.cmbTipoUsuario.Name = "cmbTipoUsuario";
-            this.cmbTipoUsuario.Size = new System.Drawing.Size(79, 21);
-            this.cmbTipoUsuario.TabIndex = 21;
-            // 
-            // lblTipoUsuarioA_U
-            // 
-            this.lblTipoUsuarioA_U.AutoSize = true;
-            this.lblTipoUsuarioA_U.Location = new System.Drawing.Point(527, 29);
-            this.lblTipoUsuarioA_U.Name = "lblTipoUsuarioA_U";
-            this.lblTipoUsuarioA_U.Size = new System.Drawing.Size(146, 13);
-            this.lblTipoUsuarioA_U.TabIndex = 22;
-            this.lblTipoUsuarioA_U.Text = "A = Admnistrador U = Usuário";
+            this.lblCadEmail.Text = "Digite o Email";
+            this.lblCadEmail.Click += new System.EventHandler(this.lblCadEmail_Click);
             // 
             // btnCadUsuario
             // 
-            this.btnCadUsuario.Location = new System.Drawing.Point(12, 170);
+            this.btnCadUsuario.Location = new System.Drawing.Point(12, 331);
             this.btnCadUsuario.Name = "btnCadUsuario";
             this.btnCadUsuario.Size = new System.Drawing.Size(199, 45);
             this.btnCadUsuario.TabIndex = 23;
             this.btnCadUsuario.Text = "Cadastrar Usuário";
             this.btnCadUsuario.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtSenha
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 144);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(199, 20);
-            this.textBox1.TabIndex = 25;
+            this.txtSenha.Location = new System.Drawing.Point(12, 269);
+            this.txtSenha.Name = "txtSenha";
+            this.txtSenha.Size = new System.Drawing.Size(199, 20);
+            this.txtSenha.TabIndex = 25;
             // 
             // lblSenha
             // 
             this.lblSenha.AutoSize = true;
-            this.lblSenha.Location = new System.Drawing.Point(12, 128);
+            this.lblSenha.Location = new System.Drawing.Point(12, 253);
             this.lblSenha.Name = "lblSenha";
             this.lblSenha.Size = new System.Drawing.Size(91, 13);
             this.lblSenha.TabIndex = 24;
             this.lblSenha.Text = "Digite uma Senha";
+            // 
+            // txtSobrenome
+            // 
+            this.txtSobrenome.Location = new System.Drawing.Point(12, 110);
+            this.txtSobrenome.Name = "txtSobrenome";
+            this.txtSobrenome.Size = new System.Drawing.Size(199, 20);
+            this.txtSobrenome.TabIndex = 27;
+            // 
+            // lblSobrenome
+            // 
+            this.lblSobrenome.AutoSize = true;
+            this.lblSobrenome.Location = new System.Drawing.Point(12, 94);
+            this.lblSobrenome.Name = "lblSobrenome";
+            this.lblSobrenome.Size = new System.Drawing.Size(100, 13);
+            this.lblSobrenome.TabIndex = 26;
+            this.lblSobrenome.Text = "Digite o Sobrenome";
+            // 
+            // txtConfirmSenha
+            // 
+            this.txtConfirmSenha.Location = new System.Drawing.Point(12, 308);
+            this.txtConfirmSenha.Name = "txtConfirmSenha";
+            this.txtConfirmSenha.Size = new System.Drawing.Size(199, 20);
+            this.txtConfirmSenha.TabIndex = 29;
+            // 
+            // lblConfirmarSenha
+            // 
+            this.lblConfirmarSenha.AutoSize = true;
+            this.lblConfirmarSenha.Location = new System.Drawing.Point(12, 292);
+            this.lblConfirmarSenha.Name = "lblConfirmarSenha";
+            this.lblConfirmarSenha.Size = new System.Drawing.Size(91, 13);
+            this.lblConfirmarSenha.TabIndex = 28;
+            this.lblConfirmarSenha.Text = "Confirme a Senha";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 13);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "CADASTRO DO SITE";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(474, 190);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(150, 13);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "CADASTRO DO APLICATIVO";
+            // 
+            // txtConfirmSenhaAPP
+            // 
+            this.txtConfirmSenhaAPP.Location = new System.Drawing.Point(474, 308);
+            this.txtConfirmSenhaAPP.Name = "txtConfirmSenhaAPP";
+            this.txtConfirmSenhaAPP.Size = new System.Drawing.Size(199, 20);
+            this.txtConfirmSenhaAPP.TabIndex = 43;
+            // 
+            // lblConfirmSenhaAPP
+            // 
+            this.lblConfirmSenhaAPP.AutoSize = true;
+            this.lblConfirmSenhaAPP.Location = new System.Drawing.Point(474, 292);
+            this.lblConfirmSenhaAPP.Name = "lblConfirmSenhaAPP";
+            this.lblConfirmSenhaAPP.Size = new System.Drawing.Size(91, 13);
+            this.lblConfirmSenhaAPP.TabIndex = 42;
+            this.lblConfirmSenhaAPP.Text = "Confirme a Senha";
+            // 
+            // txtSenhaAPP
+            // 
+            this.txtSenhaAPP.Location = new System.Drawing.Point(474, 269);
+            this.txtSenhaAPP.Name = "txtSenhaAPP";
+            this.txtSenhaAPP.Size = new System.Drawing.Size(199, 20);
+            this.txtSenhaAPP.TabIndex = 39;
+            // 
+            // lblSenhaAPP
+            // 
+            this.lblSenhaAPP.AutoSize = true;
+            this.lblSenhaAPP.Location = new System.Drawing.Point(474, 253);
+            this.lblSenhaAPP.Name = "lblSenhaAPP";
+            this.lblSenhaAPP.Size = new System.Drawing.Size(91, 13);
+            this.lblSenhaAPP.TabIndex = 38;
+            this.lblSenhaAPP.Text = "Digite uma Senha";
+            // 
+            // btnCadUserAPP
+            // 
+            this.btnCadUserAPP.Location = new System.Drawing.Point(474, 331);
+            this.btnCadUserAPP.Name = "btnCadUserAPP";
+            this.btnCadUserAPP.Size = new System.Drawing.Size(199, 45);
+            this.btnCadUserAPP.TabIndex = 37;
+            this.btnCadUserAPP.Text = "Cadastrar Usuário";
+            this.btnCadUserAPP.UseVisualStyleBackColor = true;
+            // 
+            // txtNomeUsuarioAPP
+            // 
+            this.txtNomeUsuarioAPP.Location = new System.Drawing.Point(474, 230);
+            this.txtNomeUsuarioAPP.Name = "txtNomeUsuarioAPP";
+            this.txtNomeUsuarioAPP.Size = new System.Drawing.Size(199, 20);
+            this.txtNomeUsuarioAPP.TabIndex = 36;
+            // 
+            // lblNomeUsuarioAPP
+            // 
+            this.lblNomeUsuarioAPP.AutoSize = true;
+            this.lblNomeUsuarioAPP.Location = new System.Drawing.Point(474, 214);
+            this.lblNomeUsuarioAPP.Name = "lblNomeUsuarioAPP";
+            this.lblNomeUsuarioAPP.Size = new System.Drawing.Size(128, 13);
+            this.lblNomeUsuarioAPP.TabIndex = 35;
+            this.lblNomeUsuarioAPP.Text = "Digite o Nome de Usuário";
+            // 
+            // txtTelefone
+            // 
+            this.txtTelefone.Location = new System.Drawing.Point(12, 230);
+            this.txtTelefone.Name = "txtTelefone";
+            this.txtTelefone.Size = new System.Drawing.Size(201, 20);
+            this.txtTelefone.TabIndex = 46;
+            // 
+            // lblTelefone
+            // 
+            this.lblTelefone.AutoSize = true;
+            this.lblTelefone.Location = new System.Drawing.Point(12, 213);
+            this.lblTelefone.Name = "lblTelefone";
+            this.lblTelefone.Size = new System.Drawing.Size(88, 13);
+            this.lblTelefone.TabIndex = 45;
+            this.lblTelefone.Text = "Digite o Telefone";
             // 
             // CadastroUsuario
             // 
@@ -147,12 +257,24 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
             this.ClientSize = new System.Drawing.Size(685, 385);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtTelefone);
+            this.Controls.Add(this.lblTelefone);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtConfirmSenhaAPP);
+            this.Controls.Add(this.lblConfirmSenhaAPP);
+            this.Controls.Add(this.txtSenhaAPP);
+            this.Controls.Add(this.lblSenhaAPP);
+            this.Controls.Add(this.btnCadUserAPP);
+            this.Controls.Add(this.txtNomeUsuarioAPP);
+            this.Controls.Add(this.lblNomeUsuarioAPP);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtConfirmSenha);
+            this.Controls.Add(this.lblConfirmarSenha);
+            this.Controls.Add(this.txtSobrenome);
+            this.Controls.Add(this.lblSobrenome);
+            this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.lblSenha);
             this.Controls.Add(this.btnCadUsuario);
-            this.Controls.Add(this.lblTipoUsuarioA_U);
-            this.Controls.Add(this.cmbTipoUsuario);
-            this.Controls.Add(this.lblCadTipoUsuario);
             this.Controls.Add(this.txtCadNomeUsuario);
             this.Controls.Add(this.lblNomeUsuario);
             this.Controls.Add(this.txtCadCPF);
@@ -174,11 +296,23 @@
         private System.Windows.Forms.Label lblCadCPF;
         private System.Windows.Forms.TextBox txtCadEmail;
         private System.Windows.Forms.Label lblCadEmail;
-        private System.Windows.Forms.Label lblCadTipoUsuario;
-        private System.Windows.Forms.ComboBox cmbTipoUsuario;
-        private System.Windows.Forms.Label lblTipoUsuarioA_U;
         private System.Windows.Forms.Button btnCadUsuario;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSenha;
         private System.Windows.Forms.Label lblSenha;
+        private System.Windows.Forms.TextBox txtSobrenome;
+        private System.Windows.Forms.Label lblSobrenome;
+        private System.Windows.Forms.TextBox txtConfirmSenha;
+        private System.Windows.Forms.Label lblConfirmarSenha;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtConfirmSenhaAPP;
+        private System.Windows.Forms.Label lblConfirmSenhaAPP;
+        private System.Windows.Forms.TextBox txtSenhaAPP;
+        private System.Windows.Forms.Label lblSenhaAPP;
+        private System.Windows.Forms.Button btnCadUserAPP;
+        private System.Windows.Forms.TextBox txtNomeUsuarioAPP;
+        private System.Windows.Forms.Label lblNomeUsuarioAPP;
+        private System.Windows.Forms.TextBox txtTelefone;
+        private System.Windows.Forms.Label lblTelefone;
     }
 }
