@@ -20,23 +20,35 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var conexao = new MySqlConnection(Variaveis.strConn);
-            conexao.Open();
-            
+            // Conexão será aberta quando necessária nos formulários
+            // Associar ações adicionais do menu
+            this.produtosToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
+            this.alteraçãoToolStripMenuItem.Click += alteraçãoToolStripMenuItem_Click;
         }
 
         private void usuáriosAdminsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (usuáriosAdminsToolStripMenuItem.Pressed)
-            {
-                CadastroUsuario cadastroUsuario = new CadastroUsuario();
-                cadastroUsuario.Show();
-            }
+            // Abre o formulário de cadastro de usuários sempre que o menu for clicado
+            CadastroUsuario cadastroUsuario = new CadastroUsuario();
+            cadastroUsuario.ShowDialog();
         }
 
         private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new ProdutosForm();
+            form.ShowDialog();
+        }
+
+        private void alteraçãoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Abrir listagem de produtos para seleção/alteração
+            var form = new ProdutosForm();
+            form.ShowDialog();
         }
     }
 }

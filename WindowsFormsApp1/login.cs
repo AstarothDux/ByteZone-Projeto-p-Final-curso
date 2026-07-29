@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using System.Security.Cryptography;
 
 namespace WindowsFormsApp1
 {
@@ -19,7 +21,61 @@ namespace WindowsFormsApp1
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            // validações básicas
+            var usuario = txtUser.Text.Trim();
+            var senha = txtSenha.Text;
 
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
+            {
+                MessageBox.Show("Preencha usuário e senha.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (var conexao = new MySql.Data.MySqlClient.MySqlConnection(Variaveis.strConn))
+                {
+                    conexao.Open();
+
+                    // Ajuste o nome da tabela/colunas conforme seu banco de dados
+                    // Calcula hash SHA512 da senha informada para comparar com o campo SenhaHash
+                    string hashedSenha;
+                    using (var sha = SHA512.Create())
+                    {
+                        var hashBytes = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
+                        var sb = new StringBuilder();
+                        foreach (var b in hashBytes)
+                            sb.Append(b.ToString("x2"));
+                        hashedSenha = sb.ToString(); // hex minúsculo
+                    }
+
+                    string sql = "SELECT COUNT(1) FROM tbl_usuarios WHERE NomeUsuario = @NomeUsuario AND SenhaHash = @Senha"; //o select count ja faz a contagem de registros que atendem a condição, retornando 1 se existir e 0 se não existir
+                    using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, conexao))
+                    {
+                        cmd.Parameters.AddWithValue("@NomeUsuario", usuario);
+                        cmd.Parameters.AddWithValue("@Senha", hashedSenha);
+
+                        var resultado = Convert.ToInt32(cmd.ExecuteScalar());
+                        if (resultado > 0)
+                        {
+                            // login ok
+                            Variaveis.UsuarioLogado = usuario;
+                            this.Hide();
+                            var principal = new LojaTech();
+                            principal.ShowDialog();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuário ou senha inválidos.", "Erro de login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao conectar ao banco: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,30 +10,36 @@ namespace WindowsFormsApp1
 {
     class ConsultarProdutos
     {
-        SqlConnection conn = new SqlConnection(Variaveis.strConn);
+        MySqlConnection conn = new MySqlConnection(Variaveis.strConn);
         public void consultarProdutos(string consulta)
         {
             try
             {
                 conn.Open();
                 //Criar comando de consulta
-                SqlCommand comando = new SqlCommand(consulta, conn);
+                MySqlCommand comando = new MySqlCommand(consulta, conn);
                 //Criar dataReader
-                SqlDataReader drDados = null;
+                MySqlDataReader drDados = null;
                 //Fazer a consulta
                 drDados = comando.ExecuteReader();
                 while (drDados.Read())
                 {
                     //Obter resultados das colunas
-                    string NomeProduto = (string)drDados["Nome_Produto"];
+                    string NomeProduto = drDados["Nome_Produto"].ToString();
 
-                    //Preencher combobox com dados
+                    //Preencher variáveis com dados
                     Variaveis.CaixaTxtNomeProd = NomeProduto;
                 }
+                drDados.Close();
             }
-            catch (SqlException s)
+            catch (MySqlException s)
             {
-                MessageBox.Show(s.Source.ToString());
+                MessageBox.Show(s.Message);
+            }
+            finally
+            {
+                if (conn.State == System.Data.ConnectionState.Open)
+                    conn.Close();
             }
         }
     }
