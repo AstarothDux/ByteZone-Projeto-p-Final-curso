@@ -19,8 +19,6 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox txtQtdEstoque;
         private System.Windows.Forms.Label lblPesoKG;
         private System.Windows.Forms.TextBox txtPesoKG;
-        private System.Windows.Forms.Label lblSlug;
-        private System.Windows.Forms.TextBox txtSlug;
         private System.Windows.Forms.Label lblStatusProduto;
         private System.Windows.Forms.ComboBox cmbStatusProduto;
         private System.Windows.Forms.Button btnSalvar;
@@ -53,8 +51,6 @@ namespace WindowsFormsApp1
             this.txtQtdEstoque = new System.Windows.Forms.TextBox();
             this.lblPesoKG = new System.Windows.Forms.Label();
             this.txtPesoKG = new System.Windows.Forms.TextBox();
-            this.lblSlug = new System.Windows.Forms.Label();
-            this.txtSlug = new System.Windows.Forms.TextBox();
             this.lblStatusProduto = new System.Windows.Forms.Label();
             this.cmbStatusProduto = new System.Windows.Forms.ComboBox();
             this.btnSalvar = new System.Windows.Forms.Button();
@@ -190,22 +186,6 @@ namespace WindowsFormsApp1
             this.txtPesoKG.Size = new System.Drawing.Size(100, 20);
             this.txtPesoKG.TabIndex = 18;
             // 
-            // lblSlug
-            // 
-            this.lblSlug.AutoSize = true;
-            this.lblSlug.Location = new System.Drawing.Point(12, 320);
-            this.lblSlug.Name = "lblSlug";
-            this.lblSlug.Size = new System.Drawing.Size(28, 13);
-            this.lblSlug.TabIndex = 19;
-            this.lblSlug.Text = "Slug";
-            // 
-            // txtSlug
-            // 
-            this.txtSlug.Location = new System.Drawing.Point(15, 336);
-            this.txtSlug.Name = "txtSlug";
-            this.txtSlug.Size = new System.Drawing.Size(219, 20);
-            this.txtSlug.TabIndex = 20;
-            // 
             // lblStatusProduto
             // 
             this.lblStatusProduto.AutoSize = true;
@@ -248,8 +228,6 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.btnSalvar);
             this.Controls.Add(this.cmbStatusProduto);
             this.Controls.Add(this.lblStatusProduto);
-            this.Controls.Add(this.txtSlug);
-            this.Controls.Add(this.lblSlug);
             this.Controls.Add(this.txtPesoKG);
             this.Controls.Add(this.lblPesoKG);
             this.Controls.Add(this.txtQtdEstoque);

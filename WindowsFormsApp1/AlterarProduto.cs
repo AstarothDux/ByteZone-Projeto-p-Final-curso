@@ -6,8 +6,6 @@ namespace WindowsFormsApp1
 {
     public partial class AlterarProduto : Form
     {
-        private string originalSKU = null;
-
         public AlterarProduto()
         {
             InitializeComponent();

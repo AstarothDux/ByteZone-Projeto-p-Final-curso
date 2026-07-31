@@ -108,6 +108,9 @@
       <DependentUpon>CadastroUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ConsultarProdutos.cs" />
+    <Compile Include="EditarUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +126,12 @@
     <Compile Include="ProdutosForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sobrenos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sobrenos.Designer.cs">
+      <DependentUpon>sobrenos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Variaveis.cs" />
     <EmbeddedResource Include="AlterarProduto.resx">
       <DependentUpon>AlterarProduto.cs</DependentUpon>
@@ -146,6 +155,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="sobrenos.resx">
+      <DependentUpon>sobrenos.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
