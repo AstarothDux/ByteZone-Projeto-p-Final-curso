@@ -22,7 +22,6 @@ namespace WindowsFormsApp1
         {
             // Conexão será aberta quando necessária nos formulários
             // Associar ações adicionais do menu
-            this.pToolStripMenuItem.Click += produtosToolStripMenuItem_Click;
             this.alteraçãoToolStripMenuItem.Click += alteraçãoToolStripMenuItem_Click;
         }
 
@@ -38,11 +37,6 @@ namespace WindowsFormsApp1
 
         }
 
-        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var form = new ProdutosForm();
-            form.ShowDialog();
-        }
 
         private void alteraçãoToolStripMenuItem_Click(object sender, EventArgs e)
         {
