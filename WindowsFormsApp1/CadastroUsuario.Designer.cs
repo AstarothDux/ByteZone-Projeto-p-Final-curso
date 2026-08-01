@@ -52,11 +52,13 @@
             this.lblNomeUsuarioAPP = new System.Windows.Forms.Label();
             this.txtTelefone = new System.Windows.Forms.TextBox();
             this.lblTelefone = new System.Windows.Forms.Label();
+            this.txtDataNascimento = new System.Windows.Forms.MaskedTextBox();
+            this.lblNascimento = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtCadNomeUsuario
             // 
-            this.txtCadNomeUsuario.Location = new System.Drawing.Point(12, 71);
+            this.txtCadNomeUsuario.Location = new System.Drawing.Point(12, 40);
             this.txtCadNomeUsuario.Name = "txtCadNomeUsuario";
             this.txtCadNomeUsuario.Size = new System.Drawing.Size(199, 20);
             this.txtCadNomeUsuario.TabIndex = 17;
@@ -64,7 +66,7 @@
             // lblNomeUsuario
             // 
             this.lblNomeUsuario.AutoSize = true;
-            this.lblNomeUsuario.Location = new System.Drawing.Point(12, 55);
+            this.lblNomeUsuario.Location = new System.Drawing.Point(12, 24);
             this.lblNomeUsuario.Name = "lblNomeUsuario";
             this.lblNomeUsuario.Size = new System.Drawing.Size(74, 13);
             this.lblNomeUsuario.TabIndex = 16;
@@ -72,7 +74,7 @@
             // 
             // txtCadCPF
             // 
-            this.txtCadCPF.Location = new System.Drawing.Point(13, 150);
+            this.txtCadCPF.Location = new System.Drawing.Point(13, 119);
             this.txtCadCPF.Name = "txtCadCPF";
             this.txtCadCPF.Size = new System.Drawing.Size(201, 20);
             this.txtCadCPF.TabIndex = 15;
@@ -80,7 +82,7 @@
             // lblCadCPF
             // 
             this.lblCadCPF.AutoSize = true;
-            this.lblCadCPF.Location = new System.Drawing.Point(12, 133);
+            this.lblCadCPF.Location = new System.Drawing.Point(12, 102);
             this.lblCadCPF.Name = "lblCadCPF";
             this.lblCadCPF.Size = new System.Drawing.Size(66, 13);
             this.lblCadCPF.TabIndex = 14;
@@ -88,7 +90,7 @@
             // 
             // txtCadEmail
             // 
-            this.txtCadEmail.Location = new System.Drawing.Point(12, 190);
+            this.txtCadEmail.Location = new System.Drawing.Point(12, 198);
             this.txtCadEmail.Name = "txtCadEmail";
             this.txtCadEmail.Size = new System.Drawing.Size(201, 20);
             this.txtCadEmail.TabIndex = 13;
@@ -96,7 +98,7 @@
             // lblCadEmail
             // 
             this.lblCadEmail.AutoSize = true;
-            this.lblCadEmail.Location = new System.Drawing.Point(12, 173);
+            this.lblCadEmail.Location = new System.Drawing.Point(12, 181);
             this.lblCadEmail.Name = "lblCadEmail";
             this.lblCadEmail.Size = new System.Drawing.Size(71, 13);
             this.lblCadEmail.TabIndex = 12;
@@ -105,7 +107,7 @@
             // 
             // btnCadUsuario
             // 
-            this.btnCadUsuario.Location = new System.Drawing.Point(12, 331);
+            this.btnCadUsuario.Location = new System.Drawing.Point(12, 339);
             this.btnCadUsuario.Name = "btnCadUsuario";
             this.btnCadUsuario.Size = new System.Drawing.Size(199, 45);
             this.btnCadUsuario.TabIndex = 23;
@@ -114,7 +116,7 @@
             // 
             // txtSenha
             // 
-            this.txtSenha.Location = new System.Drawing.Point(12, 269);
+            this.txtSenha.Location = new System.Drawing.Point(12, 277);
             this.txtSenha.Name = "txtSenha";
             this.txtSenha.Size = new System.Drawing.Size(199, 20);
             this.txtSenha.TabIndex = 25;
@@ -122,7 +124,7 @@
             // lblSenha
             // 
             this.lblSenha.AutoSize = true;
-            this.lblSenha.Location = new System.Drawing.Point(12, 253);
+            this.lblSenha.Location = new System.Drawing.Point(12, 261);
             this.lblSenha.Name = "lblSenha";
             this.lblSenha.Size = new System.Drawing.Size(91, 13);
             this.lblSenha.TabIndex = 24;
@@ -130,7 +132,7 @@
             // 
             // txtSobrenome
             // 
-            this.txtSobrenome.Location = new System.Drawing.Point(12, 110);
+            this.txtSobrenome.Location = new System.Drawing.Point(12, 79);
             this.txtSobrenome.Name = "txtSobrenome";
             this.txtSobrenome.Size = new System.Drawing.Size(199, 20);
             this.txtSobrenome.TabIndex = 27;
@@ -138,7 +140,7 @@
             // lblSobrenome
             // 
             this.lblSobrenome.AutoSize = true;
-            this.lblSobrenome.Location = new System.Drawing.Point(12, 94);
+            this.lblSobrenome.Location = new System.Drawing.Point(12, 63);
             this.lblSobrenome.Name = "lblSobrenome";
             this.lblSobrenome.Size = new System.Drawing.Size(100, 13);
             this.lblSobrenome.TabIndex = 26;
@@ -146,7 +148,7 @@
             // 
             // txtConfirmSenha
             // 
-            this.txtConfirmSenha.Location = new System.Drawing.Point(12, 308);
+            this.txtConfirmSenha.Location = new System.Drawing.Point(12, 316);
             this.txtConfirmSenha.Name = "txtConfirmSenha";
             this.txtConfirmSenha.Size = new System.Drawing.Size(199, 20);
             this.txtConfirmSenha.TabIndex = 29;
@@ -154,7 +156,7 @@
             // lblConfirmarSenha
             // 
             this.lblConfirmarSenha.AutoSize = true;
-            this.lblConfirmarSenha.Location = new System.Drawing.Point(12, 292);
+            this.lblConfirmarSenha.Location = new System.Drawing.Point(12, 300);
             this.lblConfirmarSenha.Name = "lblConfirmarSenha";
             this.lblConfirmarSenha.Size = new System.Drawing.Size(91, 13);
             this.lblConfirmarSenha.TabIndex = 28;
@@ -163,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 31);
+            this.label1.Location = new System.Drawing.Point(10, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 30;
@@ -237,7 +239,7 @@
             // 
             // txtTelefone
             // 
-            this.txtTelefone.Location = new System.Drawing.Point(12, 230);
+            this.txtTelefone.Location = new System.Drawing.Point(12, 238);
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(201, 20);
             this.txtTelefone.TabIndex = 46;
@@ -245,11 +247,36 @@
             // lblTelefone
             // 
             this.lblTelefone.AutoSize = true;
-            this.lblTelefone.Location = new System.Drawing.Point(12, 213);
+            this.lblTelefone.Location = new System.Drawing.Point(12, 221);
             this.lblTelefone.Name = "lblTelefone";
             this.lblTelefone.Size = new System.Drawing.Size(88, 13);
             this.lblTelefone.TabIndex = 45;
             this.lblTelefone.Text = "Digite o Telefone";
+            // 
+            // txtDataNascimento
+            // 
+            this.txtDataNascimento.Location = new System.Drawing.Point(12, 159);
+            this.txtDataNascimento.Name = "txtDataNascimento";
+            this.txtDataNascimento.Size = new System.Drawing.Size(201, 20);
+            this.txtDataNascimento.TabIndex = 48;
+            this.txtDataNascimento.Mask = "00/00/0000";
+            this.txtDataNascimento.PromptChar = '_';
+            this.txtDataNascimento.ValidatingType = typeof(System.DateTime);
+            this.txtDataNascimento.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            // Mostrar a máscara visualmente mesmo quando o controle não estiver em foco
+            this.txtDataNascimento.HidePromptOnLeave = false;
+            // Garantir contraste sobre o background
+            this.txtDataNascimento.BackColor = System.Drawing.Color.White;
+            this.txtDataNascimento.ForeColor = System.Drawing.Color.Black;
+            // 
+            // lblNascimento
+            // 
+            this.lblNascimento.AutoSize = true;
+            this.lblNascimento.Location = new System.Drawing.Point(11, 142);
+            this.lblNascimento.Name = "lblNascimento";
+            this.lblNascimento.Size = new System.Drawing.Size(104, 13);
+            this.lblNascimento.TabIndex = 47;
+            this.lblNascimento.Text = "Data de Nascimento";
             // 
             // CadastroUsuario
             // 
@@ -257,6 +284,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
             this.ClientSize = new System.Drawing.Size(685, 385);
+            this.Controls.Add(this.txtDataNascimento);
+            this.Controls.Add(this.lblNascimento);
             this.Controls.Add(this.txtTelefone);
             this.Controls.Add(this.lblTelefone);
             this.Controls.Add(this.label2);
@@ -314,5 +343,7 @@
         private System.Windows.Forms.Label lblNomeUsuarioAPP;
         private System.Windows.Forms.TextBox txtTelefone;
         private System.Windows.Forms.Label lblTelefone;
+        private System.Windows.Forms.MaskedTextBox txtDataNascimento;
+        private System.Windows.Forms.Label lblNascimento;
     }
 }

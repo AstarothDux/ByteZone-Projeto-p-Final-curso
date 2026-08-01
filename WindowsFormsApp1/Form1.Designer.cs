@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuáriosAdminsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cadastroProdutoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alteraçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreNósToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +57,7 @@
             // 
             this.cadastrarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuáriosAdminsToolStripMenuItem,
+            this.cadastroProdutoToolStripMenuItem,
             this.alteraçãoToolStripMenuItem});
             this.cadastrarToolStripMenuItem.Name = "cadastrarToolStripMenuItem";
             this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -68,6 +70,7 @@
             this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.usuáriosAdminsToolStripMenuItem.Text = "Cadastro";
             this.usuáriosAdminsToolStripMenuItem.Click += new System.EventHandler(this.usuáriosAdminsToolStripMenuItem_Click);
+            // 
             // 
             // alteraçãoToolStripMenuItem
             // 
@@ -136,6 +139,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem cadastrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cadastroProdutoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuáriosAdminsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobreNósToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;

@@ -182,6 +182,13 @@ namespace WindowsFormsApp1
             int.TryParse(txtQtdEstoque.Text.Trim(), out int qtdEstoque);
             decimal.TryParse(txtPesoKG.Text.Trim(), out decimal pesoKG);
 
+            var selected = cmbProdutos.SelectedItem as ProductListItem;
+            if (selected == null || selected.Id <= 0)
+            {
+                MessageBox.Show("Selecione um produto para salvar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 using (var conn = new MySqlConnection(Variaveis.strConn))
@@ -196,7 +203,8 @@ namespace WindowsFormsApp1
                             ValorPromocional = @ValorPromocional,
                             QtdEstoque = @QtdEstoque,
                             PesoKG = @PesoKG,
-                            StatusProduto = @StatusProduto";
+                            StatusProduto = @StatusProduto
+                        WHERE ID_Produto = @ID_Produto";
                     using (var cmd = new MySqlCommand(updateSql, conn))
                     {
                         cmd.Parameters.AddWithValue("@Nome_Prod", nome);
@@ -207,6 +215,7 @@ namespace WindowsFormsApp1
                         cmd.Parameters.AddWithValue("@QtdEstoque", qtdEstoque);
                         cmd.Parameters.AddWithValue("@PesoKG", pesoKG);
                         cmd.Parameters.AddWithValue("@StatusProduto", status);
+                        cmd.Parameters.AddWithValue("@ID_Produto", selected.Id);
                         var rows = cmd.ExecuteNonQuery();
                         if (rows > 0)
                         {

@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Globalization;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
@@ -326,6 +327,34 @@ namespace WindowsFormsApp1
                 return;
             }
 
+            // Validação de Data de Nascimento: formato dd/MM/yyyy, ano não inferior a 1945 e idade mínima 18 anos
+            var nascText = txtDataNascimento.Text.Trim();
+            if (string.IsNullOrEmpty(nascText) || nascText.Contains("_") || nascText.Length < 10)
+            {
+                MessageBox.Show("Data de nascimento inválida.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!DateTime.TryParseExact(nascText, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime nascDate))
+            {
+                MessageBox.Show("Data de nascimento inválida. Use o formato DD/MM/AAAA.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (nascDate.Year < 1945)
+            {
+                MessageBox.Show("Ano de nascimento não pode ser anterior a 1945.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idade = DateTime.Today.Year - nascDate.Year;
+            if (nascDate > DateTime.Today.AddYears(-idade)) idade--;
+            if (idade < 18)
+            {
+                MessageBox.Show("É necessário ter no mínimo 18 anos para se cadastrar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string pwdError;
             if (!ValidatePassword(senha, out pwdError))
             {
@@ -354,8 +383,8 @@ namespace WindowsFormsApp1
                         }
                     }
 
-                    string sql = @"INSERT INTO tbl_clientes (Nome_Cliente, Sobr_Cliente,Email_Cliente, Tel_Cliente, CPF_Cliente,  SenhaHash)
-                                   VALUES (@nome, @sobrenome,@email, @telefone,@cpf, @senha)";
+                    string sql = @"INSERT INTO tbl_clientes (Nome_Cliente, Sobr_Cliente, Email_Cliente, Tel_Cliente, CPF_Cliente, Data_Nascimento, SenhaHash)
+                                   VALUES (@nome, @sobrenome, @email, @telefone, @cpf, @data_nasc, @senha)";
                     using (var cmd = new MySqlCommand(sql, conexao))
                     {
                         cmd.Parameters.AddWithValue("@nome", nome);
@@ -363,6 +392,7 @@ namespace WindowsFormsApp1
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@telefone", telefone);
                         cmd.Parameters.AddWithValue("@cpf", cpf);
+                        cmd.Parameters.AddWithValue("@data_nasc", nascDate);
                         cmd.Parameters.AddWithValue("@senha", hashedSenha);
 
                         var rows = cmd.ExecuteNonQuery();
