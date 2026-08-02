@@ -1,11 +1,71 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1
 {
     public partial class AlterarProduto : Form
     {
+        private class SimpleItem
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public override string ToString() => Name;
+        }
+
+        private decimal ParseDecimalInput(string input)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(input)) return 0m;
+                var s = input.Trim();
+                if (s.Contains(".") && s.Contains(","))
+                {
+                    s = s.Replace(".", string.Empty);
+                    s = s.Replace(",", ".");
+                }
+                else if (s.Contains(",") && !s.Contains("."))
+                {
+                    s = s.Replace(",", ".");
+                }
+                if (decimal.TryParse(s, System.Globalization.NumberStyles.Number | System.Globalization.NumberStyles.AllowDecimalPoint, System.Globalization.CultureInfo.InvariantCulture, out var v)) return v;
+                if (decimal.TryParse(input, System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.CurrentCulture, out v)) return v;
+            }
+            catch { }
+            return 0m;
+        }
+
+        private string MapUiStatusToDb(MySqlConnection conn, MySqlTransaction tran, string uiStatus)
+        {
+            try
+            {
+                string columnType;
+                using (var cmd = new MySqlCommand("SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='tbl_produtos' AND COLUMN_NAME='StatusProduto'", conn, tran))
+                {
+                    columnType = Convert.ToString(cmd.ExecuteScalar() ?? string.Empty);
+                }
+                if (string.IsNullOrEmpty(columnType)) return uiStatus;
+                if (!columnType.StartsWith("enum(")) return uiStatus;
+                var matches = Regex.Matches(columnType, "'([^']*)'");
+                var allowed = matches.Cast<Match>().Select(m => m.Groups[1].Value).ToList();
+                if (allowed.Contains(uiStatus)) return uiStatus;
+                if (uiStatus == "Disponível" && allowed.Contains("Ativo")) return "Ativo";
+                if (uiStatus == "Esgotado" && allowed.Contains("Inativo")) return "Inativo";
+                if (uiStatus == "Ativo" && allowed.Contains("Disponível")) return "Disponível";
+                if (uiStatus == "Inativo" && allowed.Contains("Esgotado")) return "Esgotado";
+                return allowed.FirstOrDefault() ?? uiStatus;
+            }
+            catch
+            {
+                return uiStatus;
+            }
+        }
+        private int originalMarcaId = 0;
+        private int originalCategoriaId = 0;
+        private int currentDescricaoId = 0;
+
         public AlterarProduto()
         {
             InitializeComponent();
@@ -18,13 +78,89 @@ namespace WindowsFormsApp1
             cmbStatusProduto.DropDownStyle = ComboBoxStyle.DropDownList;
             // registrar combobox de produtos e carregar lista
             cmbProdutos.SelectedIndexChanged += CmbProdutos_SelectedIndexChanged;
+            // carregar marcas e categorias
+            LoadMarcasCategorias();
             LoadProductsList();
+        }
+
+        private void ShowValidationMessage(string message, bool success = false)
+        {
+            try
+            {
+                if (lblValidationMessage == null)
+                {
+                    // tentar obter controle do Designer (caso tenha sido adicionado lá)
+                    lblValidationMessage = this.Controls.OfType<Label>().FirstOrDefault(l => l.Name == "lblValidationMessage");
+                }
+                if (lblValidationMessage != null)
+                {
+                    lblValidationMessage.Text = message;
+                    lblValidationMessage.ForeColor = success ? System.Drawing.Color.Green : System.Drawing.Color.Red;
+                    lblValidationMessage.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show(message, success ? "Sucesso" : "Aviso", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+                }
+            }
+            catch { }
+        }
+
+        private void ClearValidationMessage()
+        {
+            try
+            {
+                if (lblValidationMessage == null)
+                {
+                    lblValidationMessage = this.Controls.OfType<Label>().FirstOrDefault(l => l.Name == "lblValidationMessage");
+                }
+                if (lblValidationMessage != null) { lblValidationMessage.Text = string.Empty; lblValidationMessage.Visible = false; }
+            }
+            catch { }
         }
 
         // Construtor adicional para abrir o formulário já carregado pelo ID do produto
         public AlterarProduto(int id) : this()
         {
             LoadProductById(id);
+        }
+
+        private void LoadMarcasCategorias()
+        {
+            try
+            {
+                using (var conn = new MySqlConnection(Variaveis.strConn))
+                {
+                    conn.Open();
+                    // marcas
+                    string sqlM = "SELECT ID_Marca, NomeMarca FROM tbl_marca ORDER BY NomeMarca";
+                    using (var cmd = new MySqlCommand(sqlM, conn))
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var id = dr["ID_Marca"] != DBNull.Value ? Convert.ToInt32(dr["ID_Marca"]) : 0;
+                            var name = dr["NomeMarca"]?.ToString() ?? string.Empty;
+                            cmbIDMarca.Items.Add(new SimpleItem { Id = id, Name = name });
+                        }
+                    }
+                    // categorias
+                    string sqlC = "SELECT ID_Categoria, NomeCategoria FROM tbl_categoria ORDER BY NomeCategoria";
+                    using (var cmd = new MySqlCommand(sqlC, conn))
+                    using (var dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var id = dr["ID_Categoria"] != DBNull.Value ? Convert.ToInt32(dr["ID_Categoria"]) : 0;
+                            var name = dr["NomeCategoria"]?.ToString() ?? string.Empty;
+                            cmbIDCategoria.Items.Add(new SimpleItem { Id = id, Name = name });
+                        }
+                    }
+                }
+            }
+            catch { }
+            if (cmbIDMarca.Items.Count > 0) cmbIDMarca.SelectedIndex = 0;
+            if (cmbIDCategoria.Items.Count > 0) cmbIDCategoria.SelectedIndex = 0;
         }
 
         private class ProductListItem
@@ -99,14 +235,54 @@ namespace WindowsFormsApp1
                             if (dr.Read())
                             {
                                 txtNomeProd.Text = dr["Nome_Prod"]?.ToString() ?? dr["Nome_Produto"]?.ToString() ?? string.Empty;
-                                txtIDMarca.Text = dr["ID_Marca"]?.ToString() ?? string.Empty;
-                                txtIDCategoria.Text = dr["ID_Categoria"]?.ToString() ?? string.Empty;
+                                var idMarca = dr["ID_Marca"] != DBNull.Value ? Convert.ToInt32(dr["ID_Marca"]) : 0;
+                                var idCategoria = dr["ID_Categoria"] != DBNull.Value ? Convert.ToInt32(dr["ID_Categoria"]) : 0;
+                                // guardar valores originais para permitir salvar sem alterar marca/categoria
+                                originalMarcaId = idMarca;
+                                originalCategoriaId = idCategoria;
+                                // selecionar itens correspondentes
+                                for (int i = 0; i < cmbIDMarca.Items.Count; i++)
+                                {
+                                    if (cmbIDMarca.Items[i] is SimpleItem si && si.Id == idMarca) { cmbIDMarca.SelectedIndex = i; break; }
+                                }
+                                for (int i = 0; i < cmbIDCategoria.Items.Count; i++)
+                                {
+                                    if (cmbIDCategoria.Items[i] is SimpleItem ci && ci.Id == idCategoria) { cmbIDCategoria.SelectedIndex = i; break; }
+                                }
                                 txtValorPreco.Text = dr["Valor_Preco"]?.ToString() ?? string.Empty;
                                 txtValorPromocional.Text = dr["ValorPromocional"]?.ToString() ?? string.Empty;
                                 txtQtdEstoque.Text = dr["QtdEstoque"]?.ToString() ?? string.Empty;
                                 txtPesoKG.Text = dr["PesoKG"]?.ToString() ?? string.Empty;
-                                var status = dr["StatusProduto"]?.ToString();
-                                cmbStatusProduto.SelectedItem = status == "Inativo" ? "Inativo" : "Ativo";
+                                var dbStatus = dr["StatusProduto"]?.ToString();
+                                // map DB values (Ativo/Inativo) to UI labels (Disponível/Esgotado)
+                                var uiStatus = dbStatus == "Inativo" ? "Esgotado" : "Disponível";
+                                cmbStatusProduto.SelectedItem = uiStatus;
+                                // carregar descrição relacionada (tbl_descricaoproduto) e armazenar ID_Descricao
+                                try
+                                {
+                                    using (var dcmd = new MySqlCommand("SELECT ID_Descricao, Descricao, Especificacoes, GarantiaMeses FROM tbl_descricaoproduto WHERE ID_Produto = @id_prod LIMIT 1", conn))
+                                    {
+                                        dcmd.Parameters.AddWithValue("@id_prod", id);
+                                        using (var ddr = dcmd.ExecuteReader())
+                                        {
+                                            if (ddr.Read())
+                                            {
+                                                currentDescricaoId = ddr["ID_Descricao"] != DBNull.Value ? Convert.ToInt32(ddr["ID_Descricao"]) : 0;
+                                                txtDescricao.Text = ddr["Descricao"]?.ToString() ?? string.Empty;
+                                                txtEspecificacoes.Text = ddr["Especificacoes"]?.ToString() ?? string.Empty;
+                                                if (decimal.TryParse(ddr["GarantiaMeses"]?.ToString(), out decimal g)) numGarantia.Value = g; else numGarantia.Value = 0;
+                                            }
+                                            else
+                                            {
+                                                currentDescricaoId = 0;
+                                                txtDescricao.Text = string.Empty;
+                                                txtEspecificacoes.Text = string.Empty;
+                                                numGarantia.Value = 0;
+                                            }
+                                        }
+                                    }
+                                }
+                                catch { }
                             }
                         }
                     }
@@ -140,8 +316,9 @@ namespace WindowsFormsApp1
                                 txtQtdEstoque.Text = dr["QtdEstoque"]?.ToString();
                                 txtPesoKG.Text = dr["PesoKG"]?.ToString();
                                 txtSlug.Text = dr["Slug"]?.ToString();
-                                var status = dr["StatusProduto"]?.ToString();
-                                cmbStatusProduto.SelectedItem = status == "Inativo" ? "Inativo" : "Ativo";
+                                var dbStatus = dr["StatusProduto"]?.ToString();
+                                var uiStatus = dbStatus == "Inativo" ? "Esgotado" : "Disponível";
+                                cmbStatusProduto.SelectedItem = uiStatus;
                             }
                             else
                             {
@@ -162,9 +339,17 @@ namespace WindowsFormsApp1
         {
             // leitura e validação simples
             var nome = txtNomeProd.Text.Trim();
-            var idMarca = txtIDMarca.Text.Trim();
-            var idCategoria = txtIDCategoria.Text.Trim();
-            var status = cmbStatusProduto.SelectedItem?.ToString() ?? "Ativo";
+            int idMarca = 0;
+            int idCategoria = 0;
+            if (cmbIDMarca.SelectedItem is SimpleItem sm) idMarca = sm.Id; else idMarca = originalMarcaId;
+            if (cmbIDCategoria.SelectedItem is SimpleItem sc) idCategoria = sc.Id; else idCategoria = originalCategoriaId;
+            var status = cmbStatusProduto.SelectedItem?.ToString() ?? "Disponível";
+            // map UI label to DB value
+            var dbStatus = status == "Disponível" ? "Ativo" : "Inativo";
+
+            // validação inline: usar label em vez de MessageBox
+            ClearValidationMessage();
+            if (string.IsNullOrWhiteSpace(nome)) { ShowValidationMessage("Nome é obrigatório."); return; }
 
             if (string.IsNullOrEmpty(nome))
             {
@@ -172,15 +357,15 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            if (!decimal.TryParse(txtValorPreco.Text.Trim(), out decimal valorPreco))
-            {
-                MessageBox.Show("Valor_Preco inválido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
+            // normalizar e parsear valores numéricos
+            decimal valorPreco = ParseDecimalInput(txtValorPreco.Text);
             decimal.TryParse(txtValorPromocional.Text.Trim(), out decimal valorPromo);
             int.TryParse(txtQtdEstoque.Text.Trim(), out int qtdEstoque);
-            decimal.TryParse(txtPesoKG.Text.Trim(), out decimal pesoKG);
+            decimal pesoKG = ParseDecimalInput(txtPesoKG.Text);
+
+            // validações adicionais de negócio
+            if (valorPreco <= 0) { ShowValidationMessage("Valor_Preco deve ser maior que zero."); return; }
+            if (qtdEstoque < 0) { ShowValidationMessage("QtdEstoque não pode ser negativo."); return; }
 
             var selected = cmbProdutos.SelectedItem as ProductListItem;
             if (selected == null || selected.Id <= 0)
@@ -205,25 +390,78 @@ namespace WindowsFormsApp1
                             PesoKG = @PesoKG,
                             StatusProduto = @StatusProduto
                         WHERE ID_Produto = @ID_Produto";
-                    using (var cmd = new MySqlCommand(updateSql, conn))
+                    using (var tran = conn.BeginTransaction())
                     {
-                        cmd.Parameters.AddWithValue("@Nome_Prod", nome);
-                        cmd.Parameters.AddWithValue("@ID_Marca", idMarca);
-                        cmd.Parameters.AddWithValue("@ID_Categoria", idCategoria);
-                        cmd.Parameters.AddWithValue("@Valor_Preco", valorPreco);
-                        cmd.Parameters.AddWithValue("@ValorPromocional", valorPromo);
-                        cmd.Parameters.AddWithValue("@QtdEstoque", qtdEstoque);
-                        cmd.Parameters.AddWithValue("@PesoKG", pesoKG);
-                        cmd.Parameters.AddWithValue("@StatusProduto", status);
-                        cmd.Parameters.AddWithValue("@ID_Produto", selected.Id);
-                        var rows = cmd.ExecuteNonQuery();
-                        if (rows > 0)
+                        using (var cmd = new MySqlCommand(updateSql, conn, tran))
                         {
-                            MessageBox.Show("Produto atualizado com sucesso.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Nenhuma alteração aplicada.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            cmd.Parameters.Add("@Nome_Prod", MySqlDbType.VarChar, 255).Value = nome;
+                            cmd.Parameters.Add("@ID_Marca", MySqlDbType.Int32).Value = idMarca;
+                            cmd.Parameters.Add("@ID_Categoria", MySqlDbType.Int32).Value = idCategoria;
+                            cmd.Parameters.Add("@Valor_Preco", MySqlDbType.Decimal).Value = valorPreco;
+                            cmd.Parameters.Add("@ValorPromocional", MySqlDbType.Decimal).Value = valorPromo;
+                            cmd.Parameters.Add("@QtdEstoque", MySqlDbType.Int32).Value = qtdEstoque;
+                            cmd.Parameters.Add("@PesoKG", MySqlDbType.Decimal).Value = pesoKG;
+                            // map UI status label to DB value
+                            cmd.Parameters.Add("@StatusProduto", MySqlDbType.VarChar, 20).Value = MapUiStatusToDb(conn, tran, status);
+                            cmd.Parameters.Add("@ID_Produto", MySqlDbType.Int32).Value = selected.Id;
+                            cmd.Prepare();
+                            var rows = cmd.ExecuteNonQuery();
+
+                            // garantir que exista no máximo uma descrição: bloquear possíveis registros e decidir update/insert
+                            int descId = 0;
+                            using (var checkCmd = new MySqlCommand("SELECT ID_Descricao FROM tbl_descricaoproduto WHERE ID_Produto = @ID_Produto LIMIT 1 FOR UPDATE", conn, tran))
+                            {
+                                checkCmd.Parameters.Add("@ID_Produto", MySqlDbType.Int32).Value = selected.Id;
+                                using (var rdr = checkCmd.ExecuteReader())
+                                {
+                                    if (rdr.Read()) descId = rdr["ID_Descricao"] != DBNull.Value ? Convert.ToInt32(rdr["ID_Descricao"]) : 0;
+                                }
+                            }
+
+                            if (descId > 0)
+                            {
+                                string upDesc = "UPDATE tbl_descricaoproduto SET Descricao=@Descricao, Especificacoes=@Especificacoes, GarantiaMeses=@Garantia WHERE ID_Descricao=@ID_Descricao";
+                                using (var dcmd = new MySqlCommand(upDesc, conn, tran))
+                                {
+                                    dcmd.Parameters.Add("@Descricao", MySqlDbType.Text).Value = txtDescricao.Text ?? string.Empty;
+                                    dcmd.Parameters.Add("@Especificacoes", MySqlDbType.Text).Value = txtEspecificacoes.Text ?? string.Empty;
+                                    dcmd.Parameters.Add("@Garantia", MySqlDbType.Int32).Value = Convert.ToInt32(numGarantia.Value);
+                                    dcmd.Parameters.Add("@ID_Descricao", MySqlDbType.Int32).Value = descId;
+                                    dcmd.Prepare();
+                                    dcmd.ExecuteNonQuery();
+                                    currentDescricaoId = descId;
+                                }
+                            }
+                            else
+                            {
+                                string insDesc = "INSERT INTO tbl_descricaoproduto (ID_Produto, Descricao, Especificacoes, GarantiaMeses) VALUES (@ID_Produto, @Descricao, @Especificacoes, @Garantia)";
+                                using (var dcmd = new MySqlCommand(insDesc, conn, tran))
+                                {
+                                    dcmd.Parameters.Add("@ID_Produto", MySqlDbType.Int32).Value = selected.Id;
+                                    dcmd.Parameters.Add("@Descricao", MySqlDbType.Text).Value = txtDescricao.Text ?? string.Empty;
+                                    dcmd.Parameters.Add("@Especificacoes", MySqlDbType.Text).Value = txtEspecificacoes.Text ?? string.Empty;
+                                    dcmd.Parameters.Add("@Garantia", MySqlDbType.Int32).Value = Convert.ToInt32(numGarantia.Value);
+                                    dcmd.Prepare();
+                                    dcmd.ExecuteNonQuery();
+                                }
+                                // obter id inserido (LAST_INSERT_ID) dentro da mesma transação
+                                using (var lcmd = new MySqlCommand("SELECT LAST_INSERT_ID()", conn, tran))
+                                {
+                                    var res = lcmd.ExecuteScalar();
+                                    currentDescricaoId = res != null ? Convert.ToInt32(res) : 0;
+                                }
+                            }
+
+                            tran.Commit();
+
+                            if (rows > 0)
+                            {
+                                ShowValidationMessage("Produto atualizado com sucesso.", success: true);
+                            }
+                            else
+                            {
+                                ShowValidationMessage("Nenhuma alteração aplicada.", success: true);
+                            }
                         }
                     }
                 }

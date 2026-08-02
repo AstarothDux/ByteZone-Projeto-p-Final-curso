@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1
 {
@@ -24,6 +25,20 @@ namespace WindowsFormsApp1
             // validações básicas
             var usuario = txtUser.Text.Trim();
             var senha = txtSenha.Text;
+            // Limites e validação básica do formato do usuário para reduzir superfície de ataque
+            const int MaxUserLength = 50;
+            if (usuario.Length > MaxUserLength)
+            {
+                MessageBox.Show("Usuário muito longo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Regex.IsMatch(usuario, "^[a-zA-Z0-9_.-]+$"))
+            {
+                MessageBox.Show("Usuário contém caracteres inválidos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
 
             if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
             {
@@ -52,8 +67,10 @@ namespace WindowsFormsApp1
                     string sql = "SELECT COUNT(1) FROM tbl_usuarios WHERE NomeUsuario = @NomeUsuario AND SenhaHash = @Senha"; //o select count ja faz a contagem de registros que atendem a condição, retornando 1 se existir e 0 se não existir
                     using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, conexao))
                     {
-                        cmd.Parameters.AddWithValue("@NomeUsuario", usuario);
-                        cmd.Parameters.AddWithValue("@Senha", hashedSenha);
+                        // Use parâmetros tipados em vez de AddWithValue para evitar inferência incorreta de tipos
+                        cmd.Parameters.Add("@NomeUsuario", MySqlDbType.VarChar, 100).Value = usuario;
+                        cmd.Parameters.Add("@Senha", MySqlDbType.VarChar, 128).Value = hashedSenha;
+                        cmd.Prepare();
 
                         var resultado = Convert.ToInt32(cmd.ExecuteScalar());
                         if (resultado > 0)

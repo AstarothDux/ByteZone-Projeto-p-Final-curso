@@ -11,6 +11,7 @@ namespace WindowsFormsApp1
     {
         public static string CaixaTxtNomeProd { get; set; }
         public static string CaixaTxtDescricaoProd { get; set; }
+        public static string CaixaTxtEspecificacoesProd { get; set; }
         public static string CaixaTxtMarcaProd { get; set; }
         public static string CaixaCmbCategoriaProd { get; set; }
         public static string CaixaTxtValorProd { get; set; }

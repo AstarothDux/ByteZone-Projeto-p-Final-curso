@@ -255,19 +255,14 @@
             // 
             // txtDataNascimento
             // 
+            this.txtDataNascimento.BackColor = System.Drawing.Color.White;
+            this.txtDataNascimento.ForeColor = System.Drawing.Color.Black;
             this.txtDataNascimento.Location = new System.Drawing.Point(12, 159);
+            this.txtDataNascimento.Mask = "00/00/0000";
             this.txtDataNascimento.Name = "txtDataNascimento";
             this.txtDataNascimento.Size = new System.Drawing.Size(201, 20);
             this.txtDataNascimento.TabIndex = 48;
-            this.txtDataNascimento.Mask = "00/00/0000";
-            this.txtDataNascimento.PromptChar = '_';
             this.txtDataNascimento.ValidatingType = typeof(System.DateTime);
-            this.txtDataNascimento.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            // Mostrar a máscara visualmente mesmo quando o controle não estiver em foco
-            this.txtDataNascimento.HidePromptOnLeave = false;
-            // Garantir contraste sobre o background
-            this.txtDataNascimento.BackColor = System.Drawing.Color.White;
-            this.txtDataNascimento.ForeColor = System.Drawing.Color.Black;
             // 
             // lblNascimento
             // 
@@ -282,7 +277,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.hq720;
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.imagem;
             this.ClientSize = new System.Drawing.Size(685, 385);
             this.Controls.Add(this.txtDataNascimento);
             this.Controls.Add(this.lblNascimento);

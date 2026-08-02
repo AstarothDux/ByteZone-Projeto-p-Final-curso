@@ -9,6 +9,7 @@ namespace WindowsFormsApp1
 {
     public class EditarUsuarios : Form
     {
+        private ComboBox cmbUsers;
         private CheckBox chkModoApp;
         private TextBox txtSearch;
         private Button btnLoad;
@@ -31,6 +32,13 @@ namespace WindowsFormsApp1
 
         private int currentClientId = 0;
         private int currentUserId = 0;
+
+        private class ComboItem
+        {
+            public int Id { get; set; }
+            public string Text { get; set; }
+            public override string ToString() => Text;
+        }
 
         public EditarUsuarios()
         {
@@ -58,8 +66,10 @@ namespace WindowsFormsApp1
 
         private void InitializeComponents()
         {
-            chkModoApp = new CheckBox { Text = "Modo App", Location = new Point(12, 12), AutoSize = true };
+            chkModoApp = new CheckBox { Text = "Modo App", Location = new Point(400, 12), AutoSize = true };
             chkModoApp.CheckedChanged += (s, e) => UpdateMode();
+            cmbUsers = new ComboBox { Location = new Point(12, 12), Width = 380, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbUsers.SelectedIndexChanged += CmbUsers_SelectedIndexChanged;
 
             txtSearch = new TextBox { Location = new Point(12, 40), Width = 380 };
             btnLoad = new Button { Text = "Carregar", Location = new Point(400, 38) };
@@ -98,7 +108,11 @@ namespace WindowsFormsApp1
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += (s, e) => this.Close();
 
-            this.Controls.AddRange(new Control[] { chkModoApp, txtSearch, btnLoad, panelSite, panelApp, btnSave, btnCancel });
+            // definições da imagem de fundo igual às outras telas
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.imagem;
+            this.BackgroundImageLayout = ImageLayout.Stretch;
+
+            this.Controls.AddRange(new Control[] { cmbUsers, chkModoApp, txtSearch, btnLoad, panelSite, panelApp, btnSave, btnCancel });
         }
 
         private void UpdateMode()
@@ -109,6 +123,58 @@ namespace WindowsFormsApp1
             // PlaceholderText não existe no .NET Framework 4.7.2; usar cue banner via WinAPI
             SetCueBanner(txtSearch, app ? "Digite nome de usuário" : "Digite email ou CPF");
             ClearFields();
+            PopulateUsersCombo();
+        }
+
+        private void CmbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbUsers.SelectedItem is ComboItem ci)
+            {
+                if (chkModoApp.Checked) LoadAppUserById(ci.Id);
+                else LoadSiteClientById(ci.Id);
+            }
+        }
+
+        private void PopulateUsersCombo()
+        {
+            cmbUsers.Items.Clear();
+            try
+            {
+                using (var conn = new MySqlConnection(Variaveis.strConn))
+                {
+                    conn.Open();
+                    if (chkModoApp.Checked)
+                    {
+                        string sql = "SELECT ID_Usuario, NomeUsuario FROM tbl_usuarios ORDER BY NomeUsuario";
+                        using (var cmd = new MySqlCommand(sql, conn))
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                var id = dr["ID_Usuario"] != DBNull.Value ? Convert.ToInt32(dr["ID_Usuario"]) : 0;
+                                var name = dr["NomeUsuario"]?.ToString() ?? string.Empty;
+                                cmbUsers.Items.Add(new ComboItem { Id = id, Text = name });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string sql = "SELECT ID_Cliente, Nome_Cliente, Sobr_Cliente FROM tbl_clientes ORDER BY Nome_Cliente";
+                        using (var cmd = new MySqlCommand(sql, conn))
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                var id = dr["ID_Cliente"] != DBNull.Value ? Convert.ToInt32(dr["ID_Cliente"]) : 0;
+                                var name = (dr["Nome_Cliente"]?.ToString() ?? string.Empty) + " " + (dr["Sobr_Cliente"]?.ToString() ?? string.Empty);
+                                cmbUsers.Items.Add(new ComboItem { Id = id, Text = name.Trim() });
+                            }
+                        }
+                    }
+                }
+            }
+            catch { /* falha silenciosa, não bloqueia UI */ }
+            if (cmbUsers.Items.Count > 0) cmbUsers.SelectedIndex = 0;
         }
 
         private void ClearFields()
@@ -142,7 +208,8 @@ namespace WindowsFormsApp1
                     string sql = "SELECT ID_Cliente, Nome_Cliente, Sobr_Cliente, Email_Cliente, CPF_Cliente, Tel_Cliente FROM tbl_clientes WHERE Email_Cliente = @k OR CPF_Cliente = @k LIMIT 1";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@k", key);
+                        cmd.Parameters.Add("@k", MySqlDbType.VarChar, 120).Value = key;
+                        cmd.Prepare();
                         using (var dr = cmd.ExecuteReader())
                         {
                             if (dr.Read())
@@ -177,7 +244,8 @@ namespace WindowsFormsApp1
                     string sql = "SELECT ID_Usuario, NomeUsuario FROM tbl_usuarios WHERE NomeUsuario = @u LIMIT 1";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@u", username);
+                        cmd.Parameters.Add("@u", MySqlDbType.VarChar, 100).Value = username;
+                        cmd.Prepare();
                         using (var dr = cmd.ExecuteReader())
                         {
                             if (dr.Read())
@@ -195,6 +263,64 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("Erro: " + ex.Message);
             }
+        }
+
+        private void LoadSiteClientById(int id)
+        {
+            if (id == 0) return;
+            try
+            {
+                using (var conn = new MySqlConnection(Variaveis.strConn))
+                {
+                    conn.Open();
+                    string sql = "SELECT ID_Cliente, Nome_Cliente, Sobr_Cliente, Email_Cliente, CPF_Cliente, Tel_Cliente FROM tbl_clientes WHERE ID_Cliente = @id LIMIT 1";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                        cmd.Prepare();
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                currentClientId = dr["ID_Cliente"] != DBNull.Value ? Convert.ToInt32(dr["ID_Cliente"]) : 0;
+                                txtNome.Text = dr["Nome_Cliente"]?.ToString() ?? string.Empty;
+                                txtSobrenome.Text = dr["Sobr_Cliente"]?.ToString() ?? string.Empty;
+                                txtEmail.Text = dr["Email_Cliente"]?.ToString() ?? string.Empty;
+                                txtCPF.Text = dr["CPF_Cliente"]?.ToString() ?? string.Empty;
+                                txtTelefone.Text = dr["Tel_Cliente"]?.ToString() ?? string.Empty;
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void LoadAppUserById(int id)
+        {
+            if (id == 0) return;
+            try
+            {
+                using (var conn = new MySqlConnection(Variaveis.strConn))
+                {
+                    conn.Open();
+                    string sql = "SELECT ID_Usuario, NomeUsuario FROM tbl_usuarios WHERE ID_Usuario = @id LIMIT 1";
+                    using (var cmd = new MySqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                        cmd.Prepare();
+                        using (var dr = cmd.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                currentUserId = dr["ID_Usuario"] != DBNull.Value ? Convert.ToInt32(dr["ID_Usuario"]) : 0;
+                                txtNomeUsuario.Text = dr["NomeUsuario"]?.ToString() ?? string.Empty;
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -225,6 +351,13 @@ namespace WindowsFormsApp1
                 return;
             }
 
+            // Verificação obrigatória: senha não pode ser nula/ vazia ao salvar alterações
+            if (string.IsNullOrEmpty(senha))
+            {
+                MessageBox.Show("A senha não pode ficar vazia ao salvar o cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!IsValidEmail(email)) { MessageBox.Show("Email inválido."); return; }
             if (!IsValidCpf(cpf)) { MessageBox.Show("CPF inválido."); return; }
 
@@ -243,13 +376,14 @@ namespace WindowsFormsApp1
                     sql += " WHERE ID_Cliente = @id";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@n", nome);
-                        cmd.Parameters.AddWithValue("@s", sobrenome);
-                        cmd.Parameters.AddWithValue("@e", email);
-                        cmd.Parameters.AddWithValue("@c", cpf);
-                        cmd.Parameters.AddWithValue("@t", telefone);
-                        if (!string.IsNullOrEmpty(senha)) cmd.Parameters.AddWithValue("@h", ComputeSha512Hex(senha));
-                        cmd.Parameters.AddWithValue("@id", currentClientId);
+                        cmd.Parameters.Add("@n", MySqlDbType.VarChar, 120).Value = nome;
+                        cmd.Parameters.Add("@s", MySqlDbType.VarChar, 120).Value = sobrenome;
+                        cmd.Parameters.Add("@e", MySqlDbType.VarChar, 200).Value = email;
+                        cmd.Parameters.Add("@c", MySqlDbType.VarChar, 20).Value = cpf;
+                        cmd.Parameters.Add("@t", MySqlDbType.VarChar, 40).Value = telefone;
+                        if (!string.IsNullOrEmpty(senha)) cmd.Parameters.Add("@h", MySqlDbType.VarChar, 128).Value = ComputeSha512Hex(senha);
+                        cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = currentClientId;
+                        cmd.Prepare();
                         var rows = cmd.ExecuteNonQuery();
                         if (rows > 0) MessageBox.Show("Cliente atualizado com sucesso."); else MessageBox.Show("Nenhuma alteração aplicada.");
                     }
@@ -267,6 +401,12 @@ namespace WindowsFormsApp1
             var nomeUsuario = txtNomeUsuario.Text.Trim();
             var senha = txtSenhaApp.Text;
             if (string.IsNullOrEmpty(nomeUsuario)) { MessageBox.Show("Nome de usuário obrigatório."); return; }
+            // Verificação obrigatória: senha não pode ser nula/ vazia ao salvar alterações
+            if (string.IsNullOrEmpty(senha))
+            {
+                MessageBox.Show("A senha não pode ficar vazia ao salvar o usuário do app.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 using (var conn = new MySqlConnection(Variaveis.strConn))
@@ -277,9 +417,10 @@ namespace WindowsFormsApp1
                     sql += " WHERE ID_Usuario = @id";
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
-                        cmd.Parameters.AddWithValue("@n", nomeUsuario);
-                        if (!string.IsNullOrEmpty(senha)) cmd.Parameters.AddWithValue("@h", ComputeSha512Hex(senha));
-                        cmd.Parameters.AddWithValue("@id", currentUserId);
+                        cmd.Parameters.Add("@n", MySqlDbType.VarChar, 100).Value = nomeUsuario;
+                        if (!string.IsNullOrEmpty(senha)) cmd.Parameters.Add("@h", MySqlDbType.VarChar, 128).Value = ComputeSha512Hex(senha);
+                        cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = currentUserId;
+                        cmd.Prepare();
                         var rows = cmd.ExecuteNonQuery();
                         if (rows > 0) MessageBox.Show("Usuário do app atualizado com sucesso."); else MessageBox.Show("Nenhuma alteração aplicada.");
                     }
@@ -329,6 +470,19 @@ namespace WindowsFormsApp1
                 foreach (var b in bytes) sb.Append(b.ToString("x2"));
                 return sb.ToString();
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // EditarUsuarios
+            // 
+            this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.imagem;
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "EditarUsuarios";
+            this.ResumeLayout(false);
+
         }
     }
 }
