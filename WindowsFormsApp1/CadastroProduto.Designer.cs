@@ -143,9 +143,9 @@
             this.lblValorPreco.AutoSize = true;
             this.lblValorPreco.Location = new System.Drawing.Point(240, 70);
             this.lblValorPreco.Name = "lblValorPreco";
-            this.lblValorPreco.Size = new System.Drawing.Size(65, 13);
+            this.lblValorPreco.Size = new System.Drawing.Size(35, 13);
             this.lblValorPreco.TabIndex = 6;
-            this.lblValorPreco.Text = "Valor_Preco";
+            this.lblValorPreco.Text = "Preço";
             // 
             // txtValorPreco
             // 
@@ -159,9 +159,9 @@
             this.lblValorPromocional.AutoSize = true;
             this.lblValorPromocional.Location = new System.Drawing.Point(360, 70);
             this.lblValorPromocional.Name = "lblValorPromocional";
-            this.lblValorPromocional.Size = new System.Drawing.Size(89, 13);
+            this.lblValorPromocional.Size = new System.Drawing.Size(86, 13);
             this.lblValorPromocional.TabIndex = 8;
-            this.lblValorPromocional.Text = "ValorPromocional";
+            this.lblValorPromocional.Text = "Preço Promoção";
             // 
             // txtValorPromocional
             // 
@@ -175,9 +175,9 @@
             this.lblQtdEstoque.AutoSize = true;
             this.lblQtdEstoque.Location = new System.Drawing.Point(480, 70);
             this.lblQtdEstoque.Name = "lblQtdEstoque";
-            this.lblQtdEstoque.Size = new System.Drawing.Size(63, 13);
+            this.lblQtdEstoque.Size = new System.Drawing.Size(46, 13);
             this.lblQtdEstoque.TabIndex = 10;
-            this.lblQtdEstoque.Text = "QtdEstoque";
+            this.lblQtdEstoque.Text = "Estoque";
             // 
             // txtQtdEstoque
             // 
@@ -191,9 +191,9 @@
             this.lblPesoKG.AutoSize = true;
             this.lblPesoKG.Location = new System.Drawing.Point(580, 70);
             this.lblPesoKG.Name = "lblPesoKG";
-            this.lblPesoKG.Size = new System.Drawing.Size(46, 13);
+            this.lblPesoKG.Size = new System.Drawing.Size(31, 13);
             this.lblPesoKG.TabIndex = 12;
-            this.lblPesoKG.Text = "PesoKG";
+            this.lblPesoKG.Text = "Peso";
             // 
             // txtPesoKG
             // 
@@ -223,9 +223,9 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(240, 120);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(74, 13);
+            this.lblStatus.Size = new System.Drawing.Size(37, 13);
             this.lblStatus.TabIndex = 16;
-            this.lblStatus.Text = "StatusProduto";
+            this.lblStatus.Text = "Status";
             // 
             // cmbStatus
             // 

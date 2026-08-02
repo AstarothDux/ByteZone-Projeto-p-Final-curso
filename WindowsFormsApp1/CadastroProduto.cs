@@ -231,7 +231,8 @@ VALUES (@Nome_Prod, @ID_Marca, @ID_Categoria, @Valor_Preco, @ValorPromocional, @
                                 var descText = (Convert.ToString(txtDescricao.Text) ?? string.Empty).Trim();
                                 var espec = (Convert.ToString(txtEspecificacoes.Text) ?? string.Empty).Trim();
                                 var garantia = Convert.ToInt32(numGarantia.Value);
-                                if (!string.IsNullOrEmpty(descText) || !string.IsNullOrEmpty(espec) || garantia > 0)
+                                // sempre inserir registro de descrição (mesmo que campos vazios) para manter consistência
+                                try
                                 {
                                     string insDesc = "INSERT INTO tbl_descricaoproduto (ID_Produto, Descricao, Especificacoes, GarantiaMeses) VALUES (@ID_Produto, @Descricao, @Especificacoes, @Garantia)";
                                     using (var dcmd = new MySqlCommand(insDesc, conn, tran))
@@ -243,6 +244,10 @@ VALUES (@Nome_Prod, @ID_Marca, @ID_Categoria, @Valor_Preco, @ValorPromocional, @
                                         dcmd.Prepare();
                                         dcmd.ExecuteNonQuery();
                                     }
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Erro ao inserir descrição do produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                             catch { }
