@@ -27,9 +27,7 @@ namespace WindowsFormsApp1
 
         private void usuáriosAdminsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Abre o formulário de cadastro de usuários sempre que o menu for clicado
-            CadastroUsuario cadastroUsuario = new CadastroUsuario();
-            cadastroUsuario.ShowDialog();
+
         }
 
         private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -61,6 +59,7 @@ namespace WindowsFormsApp1
         {
             var form = new AlterarProduto();
             form.ShowDialog();
+
         }
 
         private void usuárioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -73,6 +72,18 @@ namespace WindowsFormsApp1
         private void alteraçãoToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CadastroUsuario cadastroUsuario = new CadastroUsuario();
+            cadastroUsuario.ShowDialog();
+        }
+
+        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CadastroProduto cadastroProduto = new CadastroProduto();
+            cadastroProduto.ShowDialog();
         }
     }
 }

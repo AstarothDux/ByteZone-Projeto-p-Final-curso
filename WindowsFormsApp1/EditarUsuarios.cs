@@ -474,12 +474,14 @@ namespace WindowsFormsApp1
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarUsuarios));
             this.SuspendLayout();
             // 
             // EditarUsuarios
             // 
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.imagem;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EditarUsuarios";
             this.ResumeLayout(false);
 

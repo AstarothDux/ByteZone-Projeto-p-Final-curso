@@ -54,6 +54,7 @@
         private System.Windows.Forms.NumericUpDown numGarantia;
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroProduto));
             this.lblNomeProd = new System.Windows.Forms.Label();
             this.txtNomeProd = new System.Windows.Forms.TextBox();
             this.lblMarca = new System.Windows.Forms.Label();
@@ -402,6 +403,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblValidationMessage);
             this.Controls.Add(this.numGarantia);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CadastroProduto";
             this.Text = "Cadastro de Produto";
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).EndInit();

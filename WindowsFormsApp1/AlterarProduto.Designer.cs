@@ -41,6 +41,7 @@ namespace WindowsFormsApp1
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlterarProduto));
             this.lblProdutos = new System.Windows.Forms.Label();
             this.cmbProdutos = new System.Windows.Forms.ComboBox();
             this.lblNomeProd = new System.Windows.Forms.Label();
@@ -63,11 +64,11 @@ namespace WindowsFormsApp1
             this.btnCancelar = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabDescricao = new System.Windows.Forms.TabPage();
+            this.lblEspecificacoes = new System.Windows.Forms.Label();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.txtEspecificacoes = new System.Windows.Forms.TextBox();
             this.numGarantia = new System.Windows.Forms.NumericUpDown();
             this.lblValidationMessage = new System.Windows.Forms.Label();
-            this.lblEspecificacoes = new System.Windows.Forms.Label();
             this.lblURL = new System.Windows.Forms.Label();
             this.txtURLImagem = new System.Windows.Forms.TextBox();
             this.lblGarantia = new System.Windows.Forms.Label();
@@ -268,6 +269,15 @@ namespace WindowsFormsApp1
             this.tabDescricao.Text = "Descrição";
             this.tabDescricao.UseVisualStyleBackColor = true;
             // 
+            // lblEspecificacoes
+            // 
+            this.lblEspecificacoes.AutoSize = true;
+            this.lblEspecificacoes.Location = new System.Drawing.Point(6, 92);
+            this.lblEspecificacoes.Name = "lblEspecificacoes";
+            this.lblEspecificacoes.Size = new System.Drawing.Size(79, 13);
+            this.lblEspecificacoes.TabIndex = 31;
+            this.lblEspecificacoes.Text = "Especificações";
+            // 
             // txtDescricao
             // 
             this.txtDescricao.Location = new System.Drawing.Point(8, 6);
@@ -302,15 +312,6 @@ namespace WindowsFormsApp1
             this.lblValidationMessage.Name = "lblValidationMessage";
             this.lblValidationMessage.Size = new System.Drawing.Size(100, 23);
             this.lblValidationMessage.TabIndex = 0;
-            // 
-            // lblEspecificacoes
-            // 
-            this.lblEspecificacoes.AutoSize = true;
-            this.lblEspecificacoes.Location = new System.Drawing.Point(6, 92);
-            this.lblEspecificacoes.Name = "lblEspecificacoes";
-            this.lblEspecificacoes.Size = new System.Drawing.Size(79, 13);
-            this.lblEspecificacoes.TabIndex = 31;
-            this.lblEspecificacoes.Text = "Especificações";
             // 
             // lblURL
             // 
@@ -399,6 +400,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.cmbProdutos);
             this.Controls.Add(this.lblProdutos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "AlterarProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

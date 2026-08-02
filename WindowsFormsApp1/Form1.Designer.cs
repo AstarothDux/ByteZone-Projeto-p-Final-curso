@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LojaTech));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usuáriosAdminsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,6 +39,8 @@
             this.sobreNósToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,15 +69,18 @@
             // 
             // usuáriosAdminsToolStripMenuItem
             // 
+            this.usuáriosAdminsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.usuáriosToolStripMenuItem,
+            this.produtosToolStripMenuItem});
             this.usuáriosAdminsToolStripMenuItem.Name = "usuáriosAdminsToolStripMenuItem";
-            this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.usuáriosAdminsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.usuáriosAdminsToolStripMenuItem.Text = "Cadastro";
             this.usuáriosAdminsToolStripMenuItem.Click += new System.EventHandler(this.usuáriosAdminsToolStripMenuItem_Click);
             // 
             // cadastroProdutoToolStripMenuItem
             // 
             this.cadastroProdutoToolStripMenuItem.Name = "cadastroProdutoToolStripMenuItem";
-            this.cadastroProdutoToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.cadastroProdutoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             // 
             // alteraçãoToolStripMenuItem
             // 
@@ -82,7 +88,7 @@
             this.usuárioToolStripMenuItem,
             this.pToolStripMenuItem});
             this.alteraçãoToolStripMenuItem.Name = "alteraçãoToolStripMenuItem";
-            this.alteraçãoToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.alteraçãoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.alteraçãoToolStripMenuItem.Text = "Alteração";
             this.alteraçãoToolStripMenuItem.Click += new System.EventHandler(this.alteraçãoToolStripMenuItem_Click_1);
             // 
@@ -122,6 +128,20 @@
             this.sairToolStripMenuItem.Text = "Sair";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
+            // usuáriosToolStripMenuItem
+            // 
+            this.usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
+            this.usuáriosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.usuáriosToolStripMenuItem.Text = "Usuários";
+            this.usuáriosToolStripMenuItem.Click += new System.EventHandler(this.usuáriosToolStripMenuItem_Click);
+            // 
+            // produtosToolStripMenuItem
+            // 
+            this.produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
+            this.produtosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.produtosToolStripMenuItem.Text = "Produtos";
+            this.produtosToolStripMenuItem.Click += new System.EventHandler(this.produtosToolStripMenuItem_Click);
+            // 
             // LojaTech
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,6 +149,7 @@
             this.BackgroundImage = global::WindowsFormsApp1.Properties.Resources.imagem;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "LojaTech";
             this.Text = "Loja Tech";
@@ -152,6 +173,8 @@
         private System.Windows.Forms.ToolStripMenuItem alteraçãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuárioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuáriosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem;
     }
 }
 

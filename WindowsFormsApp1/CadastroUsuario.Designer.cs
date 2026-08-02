@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastroUsuario));
             this.txtCadNomeUsuario = new System.Windows.Forms.TextBox();
             this.lblNomeUsuario = new System.Windows.Forms.Label();
             this.txtCadCPF = new System.Windows.Forms.TextBox();
@@ -305,6 +306,7 @@
             this.Controls.Add(this.lblCadCPF);
             this.Controls.Add(this.txtCadEmail);
             this.Controls.Add(this.lblCadEmail);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CadastroUsuario";
             this.Text = "CadastroUsuario";
             this.ResumeLayout(false);
