@@ -366,12 +366,26 @@ namespace WindowsFormsApp1
                 using (var conn = new MySqlConnection(Variaveis.strConn))
                 {
                     conn.Open();
+                    // detecta a primeira coluna de senha em tbl_clientes: SenhaHash, Senha_Hash ou Senha
+                    string senhaColumnClientes = null;
+                    string[] candidatesClientes = new[] { "SenhaHash", "Senha_Hash", "Senha" };
+                    foreach (var candidate in candidatesClientes)
+                    {
+                        string checkSqlClientes = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_clientes' AND COLUMN_NAME = '" + candidate + "'";
+                        using (var checkCmd = new MySqlCommand(checkSqlClientes, conn))
+                        {
+                            var cntObj = checkCmd.ExecuteScalar();
+                            var cnt = cntObj != null ? Convert.ToInt32(cntObj) : 0;
+                            if (cnt > 0) { senhaColumnClientes = candidate; break; }
+                        }
+                    }
+                    if (string.IsNullOrEmpty(senhaColumnClientes)) senhaColumnClientes = "SenhaHash";
+
                     string sql = "UPDATE tbl_clientes SET Nome_Cliente=@n, Sobr_Cliente=@s, Email_Cliente=@e, CPF_Cliente=@c, Tel_Cliente=@t";
                     if (!string.IsNullOrEmpty(senha))
                     {
-                        // substituir senha apenas se informado
-                        var hash = ComputeSha512Hex(senha);
-                        sql += ", SenhaHash=@h";
+                        // substituir senha apenas se informado e a coluna existir (ou usar fallback)
+                        sql += $", {senhaColumnClientes}=@h";
                     }
                     sql += " WHERE ID_Cliente = @id";
                     using (var cmd = new MySqlCommand(sql, conn))
@@ -412,9 +426,27 @@ namespace WindowsFormsApp1
                 using (var conn = new MySqlConnection(Variaveis.strConn))
                 {
                     conn.Open();
-                    string sql = "UPDATE tbl_usuarios SET NomeUsuario=@n";
-                    if (!string.IsNullOrEmpty(senha)) sql += ", SenhaHash=@h";
+                    // Verifica se a coluna SenhaHash existe; se não existir, utiliza a coluna Senha (compatibilidade com esquemas antigos)
+                    // detecta a primeira coluna de senha disponível: SenhaHash, Senha_Hash ou Senha
+                    string senhaColumn = "SenhaHash";
+                    string[] candidates = new[] { "SenhaHash", "Senha_Hash", "Senha" };
+                    senhaColumn = null;
+                    foreach (var candidate in candidates)
+                    {
+                        string checkSql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_usuarios' AND COLUMN_NAME = '" + candidate + "'";
+                        using (var checkCmd = new MySqlCommand(checkSql, conn))
+                        {
+                            var cntObj = checkCmd.ExecuteScalar();
+                            var cnt = cntObj != null ? Convert.ToInt32(cntObj) : 0;
+                            if (cnt > 0) { senhaColumn = candidate; break; }
+                        }
+                    }
+                    if (string.IsNullOrEmpty(senhaColumn)) senhaColumn = "SenhaHash"; // fallback conservador
+
+                    string sql = $"UPDATE tbl_usuarios SET NomeUsuario=@n";
+                    if (!string.IsNullOrEmpty(senha)) sql += $", {senhaColumn}=@h";
                     sql += " WHERE ID_Usuario = @id";
+
                     using (var cmd = new MySqlCommand(sql, conn))
                     {
                         cmd.Parameters.Add("@n", MySqlDbType.VarChar, 100).Value = nomeUsuario;

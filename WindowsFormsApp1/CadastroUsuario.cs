@@ -383,7 +383,23 @@ namespace WindowsFormsApp1
                         }
                     }
 
-                    string sql = @"INSERT INTO tbl_clientes (Nome_Cliente, Sobr_Cliente, Email_Cliente, Tel_Cliente, CPF_Cliente, Data_Nascimento, SenhaHash)
+                    // Detecta coluna de senha em tbl_clientes (SenhaHash ou Senha)
+                    // detecta a primeira coluna de senha em tbl_clientes: SenhaHash, Senha_Hash ou Senha
+                    string senhaColumnClientes = null;
+                    string[] candidatesClientes = new[] { "SenhaHash", "Senha_Hash", "Senha" };
+                    foreach (var candidate in candidatesClientes)
+                    {
+                        string checkSqlClientes = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_clientes' AND COLUMN_NAME = '" + candidate + "'";
+                        using (var checkCmd = new MySqlCommand(checkSqlClientes, conexao))
+                        {
+                            var cntObj = checkCmd.ExecuteScalar();
+                            var cnt = cntObj != null ? Convert.ToInt32(cntObj) : 0;
+                            if (cnt > 0) { senhaColumnClientes = candidate; break; }
+                        }
+                    }
+                    if (string.IsNullOrEmpty(senhaColumnClientes)) senhaColumnClientes = "SenhaHash";
+
+                    string sql = $@"INSERT INTO tbl_clientes (Nome_Cliente, Sobr_Cliente, Email_Cliente, Tel_Cliente, CPF_Cliente, Data_Nascimento, {senhaColumnClientes})
                                    VALUES (@nome, @sobrenome, @email, @telefone, @cpf, @data_nasc, @senha)";
                     using (var cmd = new MySqlCommand(sql, conexao))
                     {
@@ -460,7 +476,23 @@ namespace WindowsFormsApp1
                         }
                     }
 
-                    string sql = "INSERT INTO tbl_usuarios (NomeUsuario, SenhaHash) VALUES (@nome, @senha)";
+                    // Detecta coluna de senha em tbl_usuarios (SenhaHash ou Senha)
+                    // detecta coluna de senha em tbl_usuarios (SenhaHash, Senha_Hash ou Senha)
+                    string senhaColumnUsuarios = null;
+                    string[] candidatesUsuarios = new[] { "SenhaHash", "Senha_Hash", "Senha" };
+                    foreach (var candidate in candidatesUsuarios)
+                    {
+                        string checkSqlUsuarios = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_usuarios' AND COLUMN_NAME = '" + candidate + "'";
+                        using (var checkCmd = new MySqlCommand(checkSqlUsuarios, conexao))
+                        {
+                            var cntObj = checkCmd.ExecuteScalar();
+                            var cnt = cntObj != null ? Convert.ToInt32(cntObj) : 0;
+                            if (cnt > 0) { senhaColumnUsuarios = candidate; break; }
+                        }
+                    }
+                    if (string.IsNullOrEmpty(senhaColumnUsuarios)) senhaColumnUsuarios = "SenhaHash";
+
+                    string sql = $"INSERT INTO tbl_usuarios (NomeUsuario, {senhaColumnUsuarios}) VALUES (@nome, @senha)";
                     using (var cmd = new MySqlCommand(sql, conexao))
                     {
                         cmd.Parameters.AddWithValue("@nome", nomeUsuario);

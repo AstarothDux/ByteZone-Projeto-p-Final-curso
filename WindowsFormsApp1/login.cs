@@ -64,7 +64,23 @@ namespace WindowsFormsApp1
                         hashedSenha = sb.ToString(); // hex minúsculo
                     }
 
-                    string sql = "SELECT COUNT(1) FROM tbl_usuarios WHERE NomeUsuario = @NomeUsuario AND SenhaHash = @Senha"; //o select count ja faz a contagem de registros que atendem a condição, retornando 1 se existir e 0 se não existir
+                    // Detecta se a coluna SenhaHash existe; se não, usa Senha para compatibilidade
+                    // detecta a primeira coluna de senha disponível: SenhaHash, Senha_Hash ou Senha
+                    string senhaColumn = null;
+                    string[] candidates = new[] { "SenhaHash", "Senha_Hash", "Senha" };
+                    foreach (var candidate in candidates)
+                    {
+                        string checkSql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tbl_usuarios' AND COLUMN_NAME = '" + candidate + "'";
+                        using (var checkCmd = new MySqlCommand(checkSql, conexao))
+                        {
+                            var cntObj = checkCmd.ExecuteScalar();
+                            var cnt = cntObj != null ? Convert.ToInt32(cntObj) : 0;
+                            if (cnt > 0) { senhaColumn = candidate; break; }
+                        }
+                    }
+                    if (string.IsNullOrEmpty(senhaColumn)) senhaColumn = "SenhaHash";
+
+                    string sql = $"SELECT COUNT(1) FROM tbl_usuarios WHERE NomeUsuario = @NomeUsuario AND {senhaColumn} = @Senha"; //o select count ja faz a contagem de registros que atendem a condição, retornando 1 se existir e 0 se não existir
                     using (var cmd = new MySql.Data.MySqlClient.MySqlCommand(sql, conexao))
                     {
                         // Use parâmetros tipados em vez de AddWithValue para evitar inferência incorreta de tipos
